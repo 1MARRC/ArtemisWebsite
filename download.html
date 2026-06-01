@@ -71,6 +71,15 @@
     .beta-msg.is-err { color: var(--accent-danger); }
     .beta-msg.is-ok { color: var(--accent-success); }
     .beta-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .dl-gatehint { margin-top: 26px; font-family: var(--font-mono); font-size: 13px; color: var(--text-tertiary); display: flex; flex-wrap: wrap; gap: 6px 12px; justify-content: center; align-items: center; }
+    .dl-gatehint a { color: var(--accent-primary); border-bottom: 1px solid color-mix(in oklch, var(--accent-primary) 40%, transparent); }
+    .dl-gatehint a:hover { color: var(--accent-hover); }
+    .dl-gatehint .dot { opacity: .45; }
+    .dl-gatehint.is-unlocked #lockLine { color: var(--accent-success); }
+    .dl-gatehint.is-unlocked a { display: none; }
+    .dl-gatehint.is-unlocked .dot { display: none; }
+    .dl-msg { text-align: center; margin: 10px auto 0; max-width: 46ch; }
+    .beta-gate[hidden] { display: none; }
     @media (max-width: 520px) { .beta-row { flex-direction: column; } .beta-row .btn { width: 100%; } }
   </style>
 </head>
@@ -106,8 +115,43 @@
   <h1 class="h-display" style="margin-top:14px;">Get Flywall.<br/><em>It's yours, on your machine.</em></h1>
   <p class="lead">Free while in beta. No account, no cloud — once the local models download, everything runs offline.</p>
 
-  <!-- Beta gate: enter a key to reveal the downloads, or request one by email -->
-  <div class="beta-gate" id="betaGate">
+  <!-- Platform downloads (always visible). Windows/Mac require a beta key. -->
+  <div class="dl-grid">
+    <!-- Windows — Windows logo. Swap href for the .exe/.msi release URL. -->
+    <a class="dl-btn" href="#" data-platform="windows" aria-label="Download for Windows">
+      <span class="dl-logo">
+        <svg viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"/></svg>
+      </span>
+      <span class="dl-txt"><span class="s">Download for</span><span class="b">Windows</span></span>
+    </a>
+
+    <!-- Mac — Apple logo. Swap href for the .dmg release URL. -->
+    <a class="dl-btn" href="#" data-platform="mac" aria-label="Download for Mac">
+      <span class="dl-logo">
+        <svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zM262.1 104.5c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      </span>
+      <span class="dl-txt"><span class="s">Download for</span><span class="b">Mac</span></span>
+    </a>
+
+    <!-- iPhone — App Store logo. Placeholder; swap href for the App Store listing URL. -->
+    <a class="dl-btn" href="#" data-platform="ios" target="_blank" rel="noopener" aria-label="Download on the App Store">
+      <span class="dl-logo">
+        <svg viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM127 384.5c-5.5 9.6-17.8 12.8-27.3 7.3-9.6-5.5-12.8-17.8-7.3-27.3l14.3-24.7c16.1-4.9 29.3-1.1 39.6 11.4L127 384.5zm138.9-53.9H84c-11 0-20-9-20-20s9-20 20-20h51l65.4-113.2-20.5-35.4c-5.5-9.6-2.2-21.8 7.3-27.3 9.6-5.5 21.8-2.2 27.3 7.3l8.9 15.4 8.9-15.4c5.5-9.6 17.8-12.8 27.3-7.3 9.6 5.5 12.8 17.8 7.3 27.3l-85.8 148.6h62.1c20.2 0 31.5 23.7 22.7 40zm135.2 0h-29l19.6 33.9c5.5 9.6 2.2 21.8-7.3 27.3-9.6 5.5-21.8 2.2-27.3-7.3-32.9-56.9-57.5-99.7-74-128.1-16.7-29-4.8-58 7.1-67.8 13.1 22.7 32.7 56.7 58.9 102h52.1c11 0 20 9 20 20-.1 11-9.1 20-20.1 20z"/></svg>
+      </span>
+      <span class="dl-txt"><span class="s">Download on the</span><span class="b">App Store</span></span>
+    </a>
+  </div>
+
+  <p class="dl-gatehint" id="gateHint">
+    <span id="lockLine">Desktop downloads require a beta key.</span>
+    <a href="#" id="haveKeyLink">Enter a key</a>
+    <span class="dot" aria-hidden="true">·</span>
+    <a href="#" id="needKeyLink">Request one</a>
+  </p>
+  <p class="beta-msg dl-msg" id="dlMsg" role="status" aria-live="polite"></p>
+
+  <!-- Beta key gate (revealed when a locked download is clicked, or via the links above) -->
+  <div class="beta-gate" id="betaGate" hidden>
     <div class="beta-tabs" role="tablist" aria-label="Beta access">
       <button class="beta-tab is-active" id="tabKey" type="button" role="tab" aria-selected="true" aria-controls="panelKey">I have a beta key</button>
       <button class="beta-tab" id="tabReq" type="button" role="tab" aria-selected="false" aria-controls="panelReq">Request a key</button>
@@ -135,34 +179,6 @@
       <p class="beta-msg" id="emailMsg" role="status" aria-live="polite"></p>
     </form>
   </div>
-
-  <div id="downloads" hidden>
-  <div class="dl-grid">
-    <!-- Windows — Windows logo. Swap href for the .exe/.msi release URL. -->
-    <a class="dl-btn" href="#" data-platform="windows" aria-label="Download for Windows">
-      <span class="dl-logo">
-        <svg viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"/></svg>
-      </span>
-      <span class="dl-txt"><span class="s">Download for</span><span class="b">Windows</span></span>
-    </a>
-
-    <!-- Mac — Apple logo. Swap href for the .dmg release URL. -->
-    <a class="dl-btn" href="#" data-platform="mac" aria-label="Download for Mac">
-      <span class="dl-logo">
-        <svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zM262.1 104.5c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-      </span>
-      <span class="dl-txt"><span class="s">Download for</span><span class="b">Mac</span></span>
-    </a>
-
-    <!-- iPhone — App Store logo. Placeholder; swap href for the App Store listing URL. -->
-    <a class="dl-btn" href="#" data-platform="ios" target="_blank" rel="noopener" aria-label="Download on the App Store">
-      <span class="dl-logo">
-        <svg viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM127 384.5c-5.5 9.6-17.8 12.8-27.3 7.3-9.6-5.5-12.8-17.8-7.3-27.3l14.3-24.7c16.1-4.9 29.3-1.1 39.6 11.4L127 384.5zm138.9-53.9H84c-11 0-20-9-20-20s9-20 20-20h51l65.4-113.2-20.5-35.4c-5.5-9.6-2.2-21.8 7.3-27.3 9.6-5.5 21.8-2.2 27.3 7.3l8.9 15.4 8.9-15.4c5.5-9.6 17.8-12.8 27.3-7.3 9.6 5.5 12.8 17.8 7.3 27.3l-85.8 148.6h62.1c20.2 0 31.5 23.7 22.7 40zm135.2 0h-29l19.6 33.9c5.5 9.6 2.2 21.8-7.3 27.3-9.6 5.5-21.8 2.2-27.3-7.3-32.9-56.9-57.5-99.7-74-128.1-16.7-29-4.8-58 7.1-67.8 13.1 22.7 32.7 56.7 58.9 102h52.1c11 0 20 9 20 20-.1 11-9.1 20-20.1 20z"/></svg>
-      </span>
-      <span class="dl-txt"><span class="s">Download on the</span><span class="b">App Store</span></span>
-    </a>
-  </div>
-  </div><!-- /#downloads -->
 
   <div class="ticks" style="justify-content:center;margin-top:30px;">
     <span class="tick"><svg><use href="#i-check"/></svg>100% on-device</span>
@@ -231,23 +247,50 @@
 </script>
 
 <script>
-  // Beta gate: validate keys server-side, collect emails via Netlify Forms.
+  // Download gate: 3 platform boxes are always visible. Windows/Mac require a
+  // valid beta key (validated server-side) before the download fires; the App
+  // Store box is a direct link. Emails are collected via Netlify Forms.
   (function () {
     var STORE = 'fw-beta-unlocked';
     var gate = document.getElementById('betaGate');
-    var downloads = document.getElementById('downloads');
-
-    function unlock() {
-      if (gate) gate.hidden = true;
-      if (downloads) downloads.hidden = false;
-    }
-    try { if (localStorage.getItem(STORE)) unlock(); } catch (e) {}
-
-    // --- Tabs ---
+    var gateHint = document.getElementById('gateHint');
+    var lockLine = document.getElementById('lockLine');
+    var dlMsg = document.getElementById('dlMsg');
+    var grid = document.querySelector('.dl-grid');
     var tabKey = document.getElementById('tabKey');
     var tabReq = document.getElementById('tabReq');
     var panelKey = document.getElementById('panelKey');
     var panelReq = document.getElementById('panelReq');
+    var keyForm = document.getElementById('panelKey');
+    var keyInput = document.getElementById('betaKey');
+    var keyMsg = document.getElementById('keyMsg');
+    var keyBtn = document.getElementById('betaKeySubmit');
+    var reqForm = document.getElementById('panelReq');
+    var emailInput = document.getElementById('betaEmail');
+    var emailMsg = document.getElementById('emailMsg');
+    var emailBtn = document.getElementById('betaEmailSubmit');
+    var pendingBtn = null;
+    var LABEL = { windows: 'Windows', mac: 'Mac' };
+
+    function unlocked() { try { return !!localStorage.getItem(STORE); } catch (e) { return false; } }
+    function reflectUnlock() {
+      if (unlocked()) {
+        gateHint.classList.add('is-unlocked');
+        lockLine.textContent = '✓ Beta key active — desktop downloads ready.';
+      }
+    }
+    reflectUnlock();
+
+    function setMsg(el, text, kind) {
+      el.textContent = text;
+      el.className = el.className.replace(/\s*is-(ok|err)\b/g, '') + (kind === 'ok' ? ' is-ok' : kind === 'err' ? ' is-err' : '');
+    }
+    function busy(btn, on, label) {
+      if (on) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = label; }
+      else { btn.disabled = false; btn.textContent = btn.dataset.label || btn.textContent; }
+    }
+
+    // --- Tabs ---
     function activate(keyOn) {
       tabKey.classList.toggle('is-active', keyOn);
       tabReq.classList.toggle('is-active', !keyOn);
@@ -255,30 +298,54 @@
       tabReq.setAttribute('aria-selected', String(!keyOn));
       panelKey.classList.toggle('is-active', keyOn);
       panelReq.classList.toggle('is-active', !keyOn);
-      (keyOn ? document.getElementById('betaKey') : document.getElementById('betaEmail')).focus();
     }
-    tabKey.addEventListener('click', function () { activate(true); });
-    tabReq.addEventListener('click', function () { activate(false); });
+    tabKey.addEventListener('click', function () { activate(true); keyInput.focus(); });
+    tabReq.addEventListener('click', function () { activate(false); emailInput.focus(); });
 
-    function setMsg(el, text, ok) {
-      el.textContent = text;
-      el.className = 'beta-msg' + (text ? (ok ? ' is-ok' : ' is-err') : '');
+    function openGate(which) {
+      gate.hidden = false;
+      activate(which !== 'req');
+      gate.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function () { (which === 'req' ? emailInput : keyInput).focus(); }, 320);
     }
-    function busy(btn, on, label) {
-      if (on) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = label; }
-      else { btn.disabled = false; btn.textContent = btn.dataset.label || btn.textContent; }
+    document.getElementById('haveKeyLink').addEventListener('click', function (e) {
+      e.preventDefault(); pendingBtn = null; setMsg(keyMsg, '', ''); openGate('key');
+    });
+    document.getElementById('needKeyLink').addEventListener('click', function (e) {
+      e.preventDefault(); openGate('req');
+    });
+
+    // --- Box clicks ---
+    function fireDownload(a) {
+      var href = a.getAttribute('href');
+      if (href && href !== '#') { window.location.href = href; }
+      else { setMsg(dlMsg, 'Download link coming soon — these are placeholders.', 'ok'); }
     }
+    grid.addEventListener('click', function (e) {
+      var a = e.target.closest('.dl-btn');
+      if (!a) return;
+      e.preventDefault();
+      setMsg(dlMsg, '', '');
+      var plat = a.getAttribute('data-platform');
+      if (plat === 'ios') {
+        var href = a.getAttribute('href');
+        if (href && href !== '#') { window.open(href, '_blank', 'noopener'); }
+        else { setMsg(dlMsg, 'App Store listing coming soon.', 'ok'); }
+        return;
+      }
+      // windows / mac — require a valid key
+      if (unlocked()) { fireDownload(a); return; }
+      pendingBtn = a;
+      openGate('key');
+      setMsg(keyMsg, 'Enter your beta key to download for ' + (LABEL[plat] || 'desktop') + '.', '');
+    });
 
     // --- Key validation (serverless) ---
-    var keyForm = document.getElementById('panelKey');
-    var keyInput = document.getElementById('betaKey');
-    var keyMsg = document.getElementById('keyMsg');
-    var keyBtn = document.getElementById('betaKeySubmit');
     keyForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var key = keyInput.value.trim();
-      if (!key) { setMsg(keyMsg, 'Enter your key first.', false); return; }
-      setMsg(keyMsg, '', true);
+      if (!key) { setMsg(keyMsg, 'Enter your key first.', 'err'); return; }
+      setMsg(keyMsg, '', '');
       busy(keyBtn, true, 'Checking…');
       fetch('/.netlify/functions/validate-key', {
         method: 'POST',
@@ -289,30 +356,32 @@
         .then(function (d) {
           if (d && d.valid) {
             try { localStorage.setItem(STORE, '1'); } catch (e) {}
-            setMsg(keyMsg, 'Key accepted — here are your downloads.', true);
-            setTimeout(unlock, 400);
+            reflectUnlock();
+            setMsg(keyMsg, 'Key accepted!', 'ok');
+            var pend = pendingBtn; pendingBtn = null;
+            setTimeout(function () {
+              gate.hidden = true;
+              if (pend) { fireDownload(pend); }
+              else { setMsg(dlMsg, 'Unlocked — pick your platform above.', 'ok'); }
+            }, 550);
           } else {
-            setMsg(keyMsg, 'That key isn’t valid. Double-check it, or request a new one.', false);
+            setMsg(keyMsg, 'That key isn’t valid. Double-check it, or request a new one.', 'err');
           }
         })
         .catch(function () {
-          setMsg(keyMsg, 'Couldn’t check the key right now. Please try again in a moment.', false);
+          setMsg(keyMsg, 'Couldn’t check the key right now. Please try again in a moment.', 'err');
         })
         .then(function () { busy(keyBtn, false); });
     });
 
     // --- Email request (Netlify Forms, AJAX so we stay on-page) ---
-    var reqForm = document.getElementById('panelReq');
-    var emailInput = document.getElementById('betaEmail');
-    var emailMsg = document.getElementById('emailMsg');
-    var emailBtn = document.getElementById('betaEmailSubmit');
     reqForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var email = emailInput.value.trim();
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-        setMsg(emailMsg, 'Enter a valid email address.', false); return;
+        setMsg(emailMsg, 'Enter a valid email address.', 'err'); return;
       }
-      setMsg(emailMsg, '', true);
+      setMsg(emailMsg, '', '');
       busy(emailBtn, true, 'Sending…');
       var body = new URLSearchParams(new FormData(reqForm)).toString();
       fetch('/', {
@@ -322,11 +391,11 @@
       })
         .then(function (r) {
           if (!r.ok) throw new Error('submit failed');
-          setMsg(emailMsg, 'Thanks! We’ll email your beta key soon.', true);
+          setMsg(emailMsg, 'Thanks! We’ll email your beta key soon.', 'ok');
           reqForm.reset();
         })
         .catch(function () {
-          setMsg(emailMsg, 'Something went wrong — please try again.', false);
+          setMsg(emailMsg, 'Something went wrong — please try again.', 'err');
         })
         .then(function () { busy(emailBtn, false); });
     });

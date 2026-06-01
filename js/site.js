@@ -24,15 +24,6 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* ---------- OS detect for download label ---------- */
-  (function () {
-    var p = navigator.platform || '', ua = navigator.userAgent || '', os = 'macOS';
-    if (/Win/i.test(p) || /Windows/i.test(ua)) os = 'Windows';
-    else if (/Linux/i.test(p) && !/Android/i.test(ua)) os = 'Linux';
-    else if (/Mac/i.test(p)) os = 'macOS';
-    $$('#dlLabel, #dlLabel2').forEach(function (el) { el.textContent = 'Download for ' + os; });
-  })();
-
   /* ---------- Scroll reveals ---------- */
   if ('IntersectionObserver' in window && !reduce) {
     var io = new IntersectionObserver(function (entries) {
