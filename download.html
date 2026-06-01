@@ -37,6 +37,41 @@
     .dl-back { margin-top: 30px; }
     .dl-note { margin-top: 8px; font-size: 11.5px; color: var(--text-tertiary); opacity: .8; }
     @media (max-width: 760px) { .dl-grid { grid-template-columns: 1fr; } }
+
+    /* -------- Beta gate -------- */
+    .beta-gate {
+      max-width: 560px; margin: 52px auto 0; text-align: left;
+      background: var(--bg-elevated); border: 1px solid var(--border-default);
+      border-radius: var(--radius-xl); padding: 8px;
+      box-shadow: 0 18px 50px -24px rgba(0,0,0,.55);
+    }
+    .beta-tabs { display: flex; gap: 4px; background: var(--bg-subtle); border-radius: var(--radius-lg); padding: 4px; }
+    .beta-tab {
+      flex: 1; padding: 10px 14px; border-radius: calc(var(--radius-lg) - 3px);
+      font-size: 14px; font-weight: 600; color: var(--text-secondary);
+      transition: background var(--t-fast), color var(--t-fast);
+    }
+    .beta-tab.is-active { background: var(--bg-elevated); color: var(--text-primary); box-shadow: 0 1px 3px rgba(0,0,0,.22); }
+    .beta-panel { display: none; padding: 22px 16px 16px; }
+    .beta-panel.is-active { display: block; }
+    .beta-label { display: block; font-size: 14px; color: var(--text-secondary); margin-bottom: 13px; line-height: 1.55; }
+    .beta-row { display: flex; gap: 10px; }
+    .beta-input {
+      flex: 1; min-width: 0; padding: 12px 14px;
+      border-radius: var(--radius-md); background: var(--bg-canvas);
+      border: 1px solid var(--border-default); color: var(--text-primary);
+      font-size: 15px; font-family: var(--font-sans);
+      transition: border-color var(--t-fast), box-shadow var(--t-fast);
+    }
+    #betaKey { font-family: var(--font-mono); letter-spacing: .04em; text-transform: uppercase; }
+    .beta-input::placeholder { color: var(--text-tertiary); }
+    .beta-input:focus { outline: none; border-color: var(--border-focus); box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent-primary) 22%, transparent); }
+    .beta-row .btn { flex-shrink: 0; }
+    .beta-msg { margin: 13px 2px 0; font-size: 13px; min-height: 18px; line-height: 1.5; }
+    .beta-msg.is-err { color: var(--accent-danger); }
+    .beta-msg.is-ok { color: var(--accent-success); }
+    .beta-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 520px) { .beta-row { flex-direction: column; } .beta-row .btn { width: 100%; } }
   </style>
 </head>
 <body>
@@ -71,6 +106,37 @@
   <h1 class="h-display" style="margin-top:14px;">Get Flywall.<br/><em>It's yours, on your machine.</em></h1>
   <p class="lead">Free while in beta. No account, no cloud — once the local models download, everything runs offline.</p>
 
+  <!-- Beta gate: enter a key to reveal the downloads, or request one by email -->
+  <div class="beta-gate" id="betaGate">
+    <div class="beta-tabs" role="tablist" aria-label="Beta access">
+      <button class="beta-tab is-active" id="tabKey" type="button" role="tab" aria-selected="true" aria-controls="panelKey">I have a beta key</button>
+      <button class="beta-tab" id="tabReq" type="button" role="tab" aria-selected="false" aria-controls="panelReq">Request a key</button>
+    </div>
+
+    <!-- Enter beta key -->
+    <form class="beta-panel is-active" id="panelKey" role="tabpanel" aria-labelledby="tabKey" novalidate>
+      <label class="beta-label" for="betaKey">Enter your beta key to unlock the downloads.</label>
+      <div class="beta-row">
+        <input class="beta-input" id="betaKey" name="key" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="FLY-XXXX-XXXX-XXXX" />
+        <button class="btn btn-primary" type="submit" id="betaKeySubmit">Unlock</button>
+      </div>
+      <p class="beta-msg" id="keyMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- Request a key by email (Netlify Forms) -->
+    <form class="beta-panel" id="panelReq" role="tabpanel" aria-labelledby="tabReq" name="beta-signup" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="beta-signup" />
+      <p class="beta-hp" aria-hidden="true"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+      <label class="beta-label" for="betaEmail">No key yet? Leave your email and we'll send you one.</label>
+      <div class="beta-row">
+        <input class="beta-input" id="betaEmail" name="email" type="email" required autocomplete="email" placeholder="you@example.com" />
+        <button class="btn btn-primary" type="submit" id="betaEmailSubmit">Request key</button>
+      </div>
+      <p class="beta-msg" id="emailMsg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div id="downloads" hidden>
   <div class="dl-grid">
     <!-- Mac — Apple logo -->
     <a class="dl-btn" href="#" aria-label="Download for Mac">
@@ -96,6 +162,7 @@
       <span class="dl-txt"><span class="s">Download on the</span><span class="b">App Store</span></span>
     </a>
   </div>
+  </div><!-- /#downloads -->
 
   <div class="ticks" style="justify-content:center;margin-top:30px;">
     <span class="tick"><svg><use href="#i-check"/></svg>100% on-device</span>
@@ -159,6 +226,109 @@
       var n = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       root.setAttribute('data-theme', n);
       try { localStorage.setItem('fw-theme', n); } catch (e) {}
+    });
+  })();
+</script>
+
+<script>
+  // Beta gate: validate keys server-side, collect emails via Netlify Forms.
+  (function () {
+    var STORE = 'fw-beta-unlocked';
+    var gate = document.getElementById('betaGate');
+    var downloads = document.getElementById('downloads');
+
+    function unlock() {
+      if (gate) gate.hidden = true;
+      if (downloads) downloads.hidden = false;
+    }
+    try { if (localStorage.getItem(STORE)) unlock(); } catch (e) {}
+
+    // --- Tabs ---
+    var tabKey = document.getElementById('tabKey');
+    var tabReq = document.getElementById('tabReq');
+    var panelKey = document.getElementById('panelKey');
+    var panelReq = document.getElementById('panelReq');
+    function activate(keyOn) {
+      tabKey.classList.toggle('is-active', keyOn);
+      tabReq.classList.toggle('is-active', !keyOn);
+      tabKey.setAttribute('aria-selected', String(keyOn));
+      tabReq.setAttribute('aria-selected', String(!keyOn));
+      panelKey.classList.toggle('is-active', keyOn);
+      panelReq.classList.toggle('is-active', !keyOn);
+      (keyOn ? document.getElementById('betaKey') : document.getElementById('betaEmail')).focus();
+    }
+    tabKey.addEventListener('click', function () { activate(true); });
+    tabReq.addEventListener('click', function () { activate(false); });
+
+    function setMsg(el, text, ok) {
+      el.textContent = text;
+      el.className = 'beta-msg' + (text ? (ok ? ' is-ok' : ' is-err') : '');
+    }
+    function busy(btn, on, label) {
+      if (on) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = label; }
+      else { btn.disabled = false; btn.textContent = btn.dataset.label || btn.textContent; }
+    }
+
+    // --- Key validation (serverless) ---
+    var keyForm = document.getElementById('panelKey');
+    var keyInput = document.getElementById('betaKey');
+    var keyMsg = document.getElementById('keyMsg');
+    var keyBtn = document.getElementById('betaKeySubmit');
+    keyForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var key = keyInput.value.trim();
+      if (!key) { setMsg(keyMsg, 'Enter your key first.', false); return; }
+      setMsg(keyMsg, '', true);
+      busy(keyBtn, true, 'Checking…');
+      fetch('/.netlify/functions/validate-key', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: key })
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (d) {
+          if (d && d.valid) {
+            try { localStorage.setItem(STORE, '1'); } catch (e) {}
+            setMsg(keyMsg, 'Key accepted — here are your downloads.', true);
+            setTimeout(unlock, 400);
+          } else {
+            setMsg(keyMsg, 'That key isn’t valid. Double-check it, or request a new one.', false);
+          }
+        })
+        .catch(function () {
+          setMsg(keyMsg, 'Couldn’t check the key right now. Please try again in a moment.', false);
+        })
+        .then(function () { busy(keyBtn, false); });
+    });
+
+    // --- Email request (Netlify Forms, AJAX so we stay on-page) ---
+    var reqForm = document.getElementById('panelReq');
+    var emailInput = document.getElementById('betaEmail');
+    var emailMsg = document.getElementById('emailMsg');
+    var emailBtn = document.getElementById('betaEmailSubmit');
+    reqForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = emailInput.value.trim();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        setMsg(emailMsg, 'Enter a valid email address.', false); return;
+      }
+      setMsg(emailMsg, '', true);
+      busy(emailBtn, true, 'Sending…');
+      var body = new URLSearchParams(new FormData(reqForm)).toString();
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error('submit failed');
+          setMsg(emailMsg, 'Thanks! We’ll email your beta key soon.', true);
+          reqForm.reset();
+        })
+        .catch(function () {
+          setMsg(emailMsg, 'Something went wrong — please try again.', false);
+        })
+        .then(function () { busy(emailBtn, false); });
     });
   })();
 </script>

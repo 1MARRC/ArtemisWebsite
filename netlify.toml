@@ -1,0 +1,9 @@
+# Netlify configuration for the Flywall marketing/download site.
+# Static site (no build step) + a serverless function for beta-key validation.
+
+[build]
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
