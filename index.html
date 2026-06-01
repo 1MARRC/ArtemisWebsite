@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flywall — Your meeting intelligence layer</title>
+  <meta name="description" content="Flywall records and transcribes your meetings, organizes them into columns on a private board, and lets a local AI answer questions across your private knowledge — entirely on your machine. No bot. No cloud. No account." />
+  <link rel="icon" type="image/png" href="assets/fly-mark.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Flywall — Your meeting intelligence layer" />
+  <meta property="og:description" content="Record meetings, organize them on a private board, and query your private memory with on-device AI. No bots. No cloud. No account." />
+  <meta property="og:image" content="assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Flywall — Your meeting intelligence layer" />
+  <meta name="twitter:description" content="Meeting intelligence that never leaves your machine." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/site.css" />
+  <link rel="stylesheet" href="css/mockups.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Flywall",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "macOS, Windows, Linux",
+    "description": "Privacy-first, local-only meeting intelligence on a private column board with on-device AI memory.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+</head>
+<body style="font-family: Inter">
+
+<!-- ============ Icon sprite ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.4 9 13.8 10.8 12 15l-1.8-4.2L5.6 9l4.6-1.4L12 3z"/><path d="M19 14l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></symbol>
+    <symbol id="i-graph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="7" r="2.4"/><circle cx="9" cy="18" r="2.4"/><circle cx="18" cy="17" r="2.4"/><path d="M8.1 6.6 15.6 6.8M7.6 7.9 8.6 15.7M10.9 17.4 15.7 17.1M16.8 9.2 12 15.5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12 7.6L3 21l1.9-6A8.4 8.4 0 1 1 21 11.5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-nocloud" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .9-8.9A6 6 0 0 0 7 8.5"/><path d="M3 3l18 18"/><path d="M6.3 10.2A4.5 4.5 0 0 0 7 19h8"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 9h6v6H9zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></symbol>
+    <symbol id="i-userkey" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8m0 0 3-2m-3 2-3-2"/><circle cx="12" cy="15" r="6"/><circle cx="12" cy="15" r="1.4"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.7.3-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.6s.8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.8v2.6c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.8-.8.7-2 0-2.8a2 2 0 0 0-3 0z"/><path d="M9 13c5-5 7-9.5 7-9.5S15 5 9 11M15 9c5-5 5-7 5-7s-2 0-7 5"/><path d="M9 13l2 2"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></symbol>
+    <symbol id="i-crown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l4 4 5-7 5 7 4-4-2 13H5L3 7z"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.2"/><circle cx="12" cy="8" r="1.2"/><circle cx="16" cy="10" r="1.2"/><path d="M12 21a3 3 0 0 1 0-6 2 2 0 0 0 2-2 2 2 0 0 1 2-2"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a2.5 2.5 0 0 0-4.6-1.3A2.5 2.5 0 0 0 4 6a2.5 2.5 0 0 0-.5 4.5A2.5 2.5 0 0 0 5 15a2.5 2.5 0 0 0 4.5 1.3A2 2 0 0 0 12 18zM12 5a2.5 2.5 0 0 1 4.6-1.3A2.5 2.5 0 0 1 20 6a2.5 2.5 0 0 1 .5 4.5A2.5 2.5 0 0 1 19 15a2.5 2.5 0 0 1-4.5 1.3A2 2 0 0 1 12 18zM12 5v13"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 14a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 0 1-4 0v-.2A1.6 1.6 0 0 0 7 19.3a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H1a2 2 0 0 1 0-4h.2A1.6 1.6 0 0 0 2.7 7a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 7 2.7h.1A1.6 1.6 0 0 0 8 1.2V1a2 2 0 0 1 4 0v.2A1.6 1.6 0 0 0 13 2.7a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.2a1.6 1.6 0 0 0-1.4 1z"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h5l2 2h9a1 1 0 0 1 1 1v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a1 1 0 0 1 1-1z"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6"/><path d="M10 8H8a4 4 0 0 0 0 8h2"/><path d="M14 8h2a4 4 0 0 1 0 8h-2"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8V4h4l11 11-4 4L3 8z"/><circle cx="7" cy="8" r="1.3"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ Ambient orbs ============ -->
+<div class="orbs" aria-hidden="true">
+  <div class="orb orb--peach"></div>
+  <div class="orb orb--purple"></div>
+  <div class="orb orb--peach2"></div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav glass" id="nav">
+  <div class="nav-left">
+    <a class="brand" href="index.html" aria-label="Flywall home">
+      <img class="brand-logo" src="assets/flywall-logo.png" alt="Flywall" />
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#record">Record</a>
+      <a href="#notes">Notes</a>
+      <a href="#memory">Memory</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#">GitHub</a>
+    </nav>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme">
+      <svg class="sun"><use href="#i-sun"/></svg>
+      <svg class="moon"><use href="#i-moon"/></svg>
+    </button>
+    <a class="btn btn-primary" href="download.html">Download</a>
+    <button class="nav-burger" id="burger" aria-label="Menu"><svg width="18" height="18"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+
+<main>
+<!-- ============ HERO ============ -->
+<section class="hero container">
+  <div class="hero-inner">
+    <div class="hero-copy reveal in">
+      <span class="eyebrow">Your meeting intelligence layer
+        <span class="wave" aria-hidden="true"><i></i><i></i><i></i></span>
+      </span>
+      <h1 class="h-display" id="heroHeadline">Stop searching folders. <em>Start thinking in space.</em></h1>
+      <p class="sub">Flywall records and transcribes your meetings, organizes them into columns on a private board, then lets a local AI answer questions across everything you've captured. The AI runs on your machine. Nothing is uploaded. No account required.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="download.html" id="primaryDownload">
+          <svg width="17" height="17"><use href="#i-download"/></svg>
+          <span id="dlLabel">Download for macOS</span>
+        </a>
+        <a class="btn btn-ghost" href="#record">See how it works</a>
+      </div>
+      <p class="hero-sub-os">Also on <a href="download.html">Windows &amp; Linux</a> · Free while in beta</p>
+      <div class="ticks">
+        <span class="tick"><svg><use href="#i-check"/></svg>100% on-device</span>
+        <span class="tick"><svg><use href="#i-check"/></svg>No account</span>
+        <span class="tick"><svg><use href="#i-check"/></svg>Open exports (.md)</span>
+        <span class="tick"><svg><use href="#i-check"/></svg>macOS · Windows · Linux</span>
+      </div>
+    </div>
+
+    <!-- Hero app window — recreated Flywall UI with a live record→summarize loop -->
+    <div class="app-window reveal d2" id="heroWindow">
+      <div class="titlebar">
+        <div class="traffic"><i></i><i></i><i></i></div>
+        <span class="tb-title">flywall — board</span>
+        <div class="tb-right"><span class="tb-dot"></span><span class="mono" style="font-size:11px;color:var(--text-tertiary)">on-device</span></div>
+      </div>
+      <div class="board" id="heroBoard">
+        <div class="board-cols" id="boardCols">
+
+          <!-- Column: Meetings -->
+          <section class="column">
+            <header class="col-head"><span class="col-label">Meetings</span><span class="col-count">1</span></header>
+            <div class="col-cards">
+              <!-- Meeting card (4px green left border) — summary writes itself -->
+              <article class="card meeting">
+                <div class="card-head"><span class="rec-dot-sm"></span><span class="t">Flywall — Building a Billion-Dollar App</span></div>
+                <div class="card-body">
+                  <p class="card-meta mono">Apr 14 · 18 min · Bob, Adam</p>
+                  <p class="summary-wrap"><span class="summary-line" id="typeTarget"></span><span class="type-caret" id="typeCaret"></span></p>
+                  <div class="action-mini" id="actionMini">
+                    <span class="am-row"><svg class="amc"><use href="#i-check"/></svg>Ship the beta this week</span>
+                    <span class="am-row"><svg class="amc"><use href="#i-check"/></svg>Charge for the memory tier</span>
+                  </div>
+                </div>
+                <div class="card-foot"><div class="tags"><span class="tag lit">strategy</span><span class="tag">growth</span></div><span class="meta" id="meetMeta">recording…</span></div>
+              </article>
+            </div>
+          </section>
+
+          <!-- Column: Notes -->
+          <section class="column">
+            <header class="col-head"><span class="col-label">Notes</span><span class="col-count">2</span></header>
+            <div class="col-cards">
+              <article class="card note">
+                <div class="card-head"><svg class="ic"><use href="#i-note"/></svg><span class="t">Pricing experiments</span></div>
+                <div class="card-body"><p>Memory tier at $20/mo. Privacy is the pitch. Revisit after the beta lands…</p></div>
+                <div class="card-foot"><div class="tags"><span class="tag lit">strategy</span><span class="tag">pricing</span></div><span class="meta">2 min</span></div>
+              </article>
+              <article class="card doc">
+                <div class="card-head"><svg class="ic"><use href="#i-file"/></svg><span class="t">Market sizing</span><span class="doc-badge">PDF</span></div>
+                <div class="card-body"><p>SAM revised to 2.4M knowledge workers across NA + EU target segments…</p></div>
+                <div class="card-foot"><div class="tags"><span class="tag">research</span></div><span class="meta">1.2 MB</span></div>
+              </article>
+            </div>
+          </section>
+
+          <!-- Column: Follow-ups -->
+          <section class="column">
+            <header class="col-head"><span class="col-label">Follow-ups</span><span class="col-count">2</span></header>
+            <div class="col-cards">
+              <article class="card note">
+                <div class="card-head"><svg class="ic"><use href="#i-note"/></svg><span class="t">Before Thursday</span></div>
+                <div class="card-body"><p>Lock the launch plan · cut the beta build · draft the memory-tier page.</p></div>
+                <div class="card-foot"><div class="tags"><span class="tag">actions</span></div><span class="meta">Adam</span></div>
+              </article>
+              <article class="card note">
+                <div class="card-head"><svg class="ic"><use href="#i-note"/></svg><span class="t">Founder list</span></div>
+                <div class="card-body"><p>First 50 founders to DM when the beta ships.</p></div>
+                <div class="card-foot"><div class="tags"><span class="tag">growth</span></div><span class="meta">Bob</span></div>
+              </article>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Sparkles command bubble (frosted), bottom-right -->
+        <div class="command-widget glass" style="right:30px; bottom:96px;" title="Quick AI actions">
+          <svg><use href="#i-sparkles"/></svg>
+        </div>
+
+        <!-- Files: left-edge tab + sliding panel -->
+        <button class="edge-tab left" id="filesTab" aria-expanded="false" aria-controls="filesPanel"><svg><use href="#i-folder"/></svg><span>Files</span></button>
+        <aside class="edge-panel files-panel" id="filesPanel" aria-hidden="true" aria-label="Files">
+          <header class="ep-head"><svg><use href="#i-folder"/></svg>Files<button class="ep-close" id="filesClose" aria-label="Close Files">✕</button></header>
+          <div class="ep-list">
+            <button class="ep-item"><span class="ep-ic meeting"><svg><use href="#i-mic"/></svg></span><span class="epi-wrap"><span class="epi-t">Flywall — Building a Billion-Dollar App</span><span class="epi-s">meeting · 18 min</span></span></button>
+            <button class="ep-item"><span class="ep-ic note"><svg><use href="#i-note"/></svg></span><span class="epi-wrap"><span class="epi-t">Pricing experiments</span><span class="epi-s">note · 2 min</span></span></button>
+            <button class="ep-item"><span class="ep-ic note"><svg><use href="#i-note"/></svg></span><span class="epi-wrap"><span class="epi-t">Before Thursday</span><span class="epi-s">note · Adam</span></span></button>
+            <button class="ep-item"><span class="ep-ic note"><svg><use href="#i-note"/></svg></span><span class="epi-wrap"><span class="epi-t">Founder list</span><span class="epi-s">note · Bob</span></span></button>
+            <button class="ep-item"><span class="ep-ic doc"><svg><use href="#i-file"/></svg></span><span class="epi-wrap"><span class="epi-t">Market sizing.pdf</span><span class="epi-s">document · 1.2 MB</span></span></button>
+          </div>
+        </aside>
+
+        <!-- Chat: top-edge tab + sliding AI chat panel -->
+        <button class="edge-tab top" id="chatTab" aria-expanded="false" aria-controls="chatPanel"><svg><use href="#i-chat"/></svg><span>Chat</span></button>
+        <aside class="edge-panel chat-edge-panel" id="chatPanel" aria-hidden="true" aria-label="Flywall AI chat">
+          <header class="ep-head"><svg><use href="#i-sparkles"/></svg>Ask Flywall<button class="ep-close" id="chatClose" aria-label="Close chat">✕</button></header>
+          <div class="mem-chat">
+            <div class="chat-msg user"><span class="av">You</span><div class="bubble">What did Bob and Adam decide about pricing?</div></div>
+            <div class="chat-msg ai"><span class="av"><svg width="14" height="14"><use href="#i-sparkles"/></svg></span><div class="bubble">Ship the beta this week and charge for the memory tier — Adam to lock the plan before Thursday's board call.
+              <span class="src-hint mono"><svg width="12" height="12"><use href="#i-lock"/></svg>from 2 of your meetings · on-device</span>
+            </div></div>
+          </div>
+        </aside>
+
+        <!-- Live transcript sliver (appears during recording) -->
+        <div class="transcript-drawer glass" id="heroTranscript" hidden>
+          <div class="tl"><span class="who a">Bob</span><span class="said">If the on-device memory nails recall, this is a billion-dollar wedge.</span></div>
+          <div class="tl"><span class="who b">Adam</span><span class="said">Keeping the model fully local IS the moat. Nobody else does that.</span></div>
+        </div>
+
+        <!-- Floating toolbar (morphs to recording state) -->
+        <div class="toolbar glass-strong" id="heroToolbar">
+          <div class="tb-default">
+            <button class="tb-item record" id="recBtn"><span class="rd"></span>Record</button>
+            <span class="tb-sep"></span>
+            <button class="tb-item"><svg><use href="#i-calendar"/></svg>Prepare</button>
+            <button class="tb-item"><svg><use href="#i-check"/></svg>Act</button>
+            <button class="tb-item hide-sm"><svg><use href="#i-calendar"/></svg>Calendar</button>
+            <button class="tb-item tb-memory"><svg><use href="#i-brain"/></svg>Memory</button>
+            <span class="tb-sep hide-sm"></span>
+            <button class="tb-item icon-only hide-sm" aria-label="Theme"><svg><use href="#i-sun"/></svg></button>
+            <button class="tb-item icon-only hide-sm" aria-label="Settings"><svg><use href="#i-gear"/></svg></button>
+          </div>
+          <div class="tb-recording">
+            <div class="rec-cluster"><span class="rec-dot"></span><span class="rec-timer" id="heroTimer">00:00:00</span></div>
+            <span class="tb-sep"></span>
+            <span class="speaker-pill"><span class="sp-dot"></span>Bob</span>
+            <span class="mic-level" id="heroMic"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="tb-sep"></span>
+            <button class="rec-btn" aria-label="Pause"><svg><use href="#i-pause"/></svg></button>
+            <button class="rec-btn stop" id="stopBtn" aria-label="Stop"><svg><use href="#i-stop"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THREE PILLARS INTRO ============ -->
+<section class="section section--tight container pillars-intro">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">Three things, one private workspace</span>
+    <h2 class="section-title" style="margin-top:16px;">Record. Take notes. Then ask your own memory.</h2>
+    <p class="section-lede">Flywall does the whole loop — capture, organize, recall — and never sends a byte to anyone else's server.</p>
+  </div>
+  <div class="pillar-chips">
+    <a class="pchip reveal d1" href="#record"><span class="pn">01</span><svg><use href="#i-mic"/></svg><b>Record meetings</b></a>
+    <a class="pchip reveal d2" href="#notes"><span class="pn">02</span><svg><use href="#i-layers"/></svg><b>Take notes</b></a>
+    <a class="pchip reveal d3" href="#memory"><span class="pn">03</span><svg><use href="#i-brain"/></svg><b>Leverage AI over your memory</b></a>
+  </div>
+</section>
+
+<!-- ============ PILLAR 1 — RECORD ============ -->
+<section class="section pillar container" id="record">
+  <div class="pillar-grid">
+    <div class="pillar-copy reveal">
+      <span class="pillar-kicker"><span class="pk-num">01</span> Record meetings</span>
+      <h2 class="section-title">Hit record. No bot joins the call.</h2>
+      <p class="section-lede">Audio is captured and transcribed <strong>on your device</strong> in real time, with speaker labels. The moment you stop, a local model writes the summary, decisions, and action items — no queue, no upload.</p>
+      <ul class="pillar-points">
+        <li><svg><use href="#i-mic"/></svg><span><b>On-device transcription &amp; diarization</b> — Whisper / Parakeet, fully offline.</span></li>
+        <li><svg><use href="#i-bolt"/></svg><span><b>Instant local summary</b> — decisions and action items the second you stop.</span></li>
+        <li><svg><use href="#i-nocloud"/></svg><span><b>No bot, no upload</b> — your raw audio never leaves the machine.</span></li>
+      </ul>
+    </div>
+    <div class="pillar-visual reveal d1">
+      <div class="app-window">
+        <div class="titlebar"><div class="traffic"><i></i><i></i><i></i></div><span class="tb-title">recording — Flywall · Building a Billion-Dollar App</span></div>
+        <div class="mini-canvas record-view">
+          <div class="transcript-drawer glass" style="position:absolute;left:16px;right:16px;top:18px;bottom:auto;max-height:none;">
+            <div class="tl"><span class="who a">Bob</span><span class="said">If the on-device memory actually nails recall, this is a billion-dollar wedge.</span></div>
+            <div class="tl"><span class="who b">Adam</span><span class="said">Agreed — keeping the model fully local IS the moat. Nobody else does that.</span></div>
+            <div class="tl"><span class="who a">Bob</span><span class="said">Ship the beta this week, charge for the memory tier, let the privacy story sell it.</span></div>
+            <div class="tl"><span class="who b">Adam</span><span class="said">Done. Let's make Flywall the first thing every founder opens.</span></div>
+          </div>
+          <div class="toolbar recording glass-strong" style="position:absolute;">
+            <div class="rec-cluster"><span class="rec-dot"></span><span class="rec-timer" id="recTimerP1">00:14:32</span></div>
+            <span class="tb-sep"></span>
+            <span class="speaker-pill"><span class="sp-dot"></span>Bob</span>
+            <span class="mic-level" id="micP1"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="tb-sep"></span>
+            <button class="rec-btn" aria-label="Pause" tabindex="-1"><svg><use href="#i-pause"/></svg></button>
+            <button class="rec-btn stop" aria-label="Stop" tabindex="-1"><svg><use href="#i-stop"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PILLAR 2 — TAKE NOTES ============ -->
+<section class="section pillar container" id="notes">
+  <div class="pillar-grid reverse">
+    <div class="pillar-copy reveal">
+      <span class="pillar-kicker"><span class="pk-num">02</span> Take notes</span>
+      <h2 class="section-title">A private board, not a folder maze.</h2>
+      <p class="section-lede">Meetings, notes, and documents become movable cards, organized into columns on a private board. Drag a card from one column to the next, tag it, filter it — then export anything to plain Markdown. No nested folders to dig through.</p>
+      <ul class="pillar-points">
+        <li><svg><use href="#i-layers"/></svg><span><b>A private column board</b> — drag cards between columns, kanban-style.</span></li>
+        <li><svg><use href="#i-tag"/></svg><span><b>Tags &amp; quick filters</b> — group related thinking without folders.</span></li>
+        <li><svg><use href="#i-file"/></svg><span><b>Markdown export, no lock-in</b> — <span class="mono" style="font-size:13px;">.md</span> with YAML frontmatter, anytime.</span></li>
+      </ul>
+    </div>
+    <div class="pillar-visual reveal d1">
+      <div class="app-window">
+        <div class="titlebar"><div class="traffic"><i></i><i></i><i></i></div><span class="tb-title">flywall — board</span></div>
+        <div class="board mini-board" id="notesBoard">
+          <div class="board-cols">
+            <section class="column">
+              <header class="col-head"><span class="col-label">To do</span><span class="col-count">1</span></header>
+              <div class="col-cards">
+                <article class="card note">
+                  <div class="card-head"><svg class="ic"><use href="#i-note"/></svg><span class="t">Pricing</span></div>
+                  <div class="card-body"><p>Memory tier at $20/mo; privacy is the pitch.</p></div>
+                  <div class="card-foot"><div class="tags"><span class="tag lit">strategy</span></div><span class="meta">2 min</span></div>
+                </article>
+              </div>
+            </section>
+            <section class="column">
+              <header class="col-head"><span class="col-label">In progress</span><span class="col-count">1</span></header>
+              <div class="col-cards">
+                <article class="card meeting">
+                  <div class="card-head"><span class="rec-dot-sm"></span><span class="t">Billion-Dollar App</span></div>
+                  <div class="card-body"><p>Local memory is the moat · ship the beta.</p></div>
+                  <div class="card-foot"><div class="tags"><span class="tag lit">strategy</span></div><span class="meta">2 actions</span></div>
+                </article>
+              </div>
+            </section>
+            <section class="column">
+              <header class="col-head"><span class="col-label">Done</span><span class="col-count">1</span></header>
+              <div class="col-cards">
+                <article class="card doc">
+                  <div class="card-head"><svg class="ic"><use href="#i-file"/></svg><span class="t">Market sizing</span><span class="doc-badge">PDF</span></div>
+                  <div class="card-foot"><div class="tags"><span class="tag">research</span></div><span class="meta">1.2 MB</span></div>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PILLAR 3 — MEMORY (the differentiator) ============ -->
+<section class="section pillar-lead" id="memory">
+  <div class="container">
+    <div class="sec-head reveal" style="max-width:none;">
+      <span class="pillar-kicker lead"><span class="pk-num">03</span> Leverage AI over your private memory</span>
+      <h2 class="section-title big">Your private memory,<br/><em>queryable by AI</em> — entirely on your device.</h2>
+      <p class="section-lede" style="max-width:62ch;">Everything you capture is chunked, embedded, and tagged <strong>on your machine</strong> into a private knowledge base. The local AI answers from <em>your</em> meetings and notes — not the internet — and it compounds: the more you record, the sharper your second brain gets.</p>
+    </div>
+
+    <div class="memory-layout">
+      <!-- On-device pipeline -->
+      <div class="mem-pipeline reveal d1">
+        <div class="pipe-step"><div class="pipe-ic"><svg><use href="#i-mic"/></svg></div><b>Capture</b><span>meetings · notes · docs</span></div>
+        <div class="pipe-arrow"><svg><use href="#i-arrow"/></svg></div>
+        <div class="pipe-step"><div class="pipe-ic"><svg><use href="#i-cpu"/></svg></div><b>Chunk &amp; embed</b><span>on your CPU</span></div>
+        <div class="pipe-arrow"><svg><use href="#i-arrow"/></svg></div>
+        <div class="pipe-step"><div class="pipe-ic"><svg><use href="#i-brain"/></svg></div><b>Private memory</b><span>a local knowledge base</span></div>
+        <span class="pipe-seal mono"><svg width="13" height="13"><use href="#i-lock"/></svg> never leaves this device</span>
+      </div>
+
+      <!-- Chat + graph -->
+      <div class="memory-stage reveal d2">
+        <div class="app-window">
+          <div class="titlebar"><div class="traffic"><i></i><i></i><i></i></div><span class="tb-title">flywall — ask your memory</span><div class="tb-right"><span class="tb-dot"></span><span class="mono" style="font-size:11px;color:var(--text-tertiary)">local model</span></div></div>
+          <div class="mem-body">
+            <div class="mem-chat">
+              <div class="chat-msg user"><span class="av">You</span><div class="bubble">What did Bob and Adam decide about pricing?</div></div>
+              <div class="chat-msg ai"><span class="av"><svg width="14" height="14"><use href="#i-sparkles"/></svg></span><div class="bubble">Ship the beta this week and charge for the memory tier — Adam to lock the plan before Thursday's board call.
+                <span class="src-hint mono"><svg width="12" height="12"><use href="#i-lock"/></svg>from 2 of your meetings · on-device</span>
+              </div></div>
+            </div>
+            <div class="mem-graph">
+              <svg class="graph-svg" id="graphLinks"></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding:0;">
+      <div class="graph-legend reveal" style="justify-content:center;margin-top:34px;">
+        <span class="legend-item"><span class="legend-dot" style="background:var(--node-meeting)"></span>meeting</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--node-note)"></span>note</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--node-doc)"></span>document</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--node-theme)"></span>tag / theme</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRIVACY MANIFESTO ============ -->
+<section class="section privacy-band container" id="privacy">
+  <div class="privacy-slab reveal">
+    <div class="privacy-grid">
+      <div>
+        <span class="eyebrow">Privacy isn't a setting</span>
+        <h2 class="section-title" style="margin-top:16px;">Your meetings never leave this device.</h2>
+        <p class="privacy-quote">No bot joins your call. No audio is uploaded. No account required. The AI runs on your CPU.<br/><span style="color:var(--accent-primary)">Your meetings are yours — full stop.</span></p>
+        <div class="privacy-points">
+          <div class="privacy-point"><svg><use href="#i-shield"/></svg><span><b>On-device by default.</b> Recording, transcription, embeddings, and summaries happen locally — offline works.</span></div>
+          <div class="privacy-point"><svg><use href="#i-nocloud"/></svg><span><b>Nothing phones home.</b> No telemetry, no sync, no servers in the loop.</span></div>
+          <div class="privacy-point"><svg><use href="#i-userkey"/></svg><span><b>No account, ever.</b> Open the app and start. There's nothing to sign up for.</span></div>
+        </div>
+      </div>
+      <div class="privacy-diagram glass" data-pd aria-label="Diagram: your meeting flows into your device for local processing; nothing reaches the cloud">
+        <div class="pd-row">
+          <div class="pd-end">
+            <span class="pd-chip"><svg><use href="#i-mic"/></svg></span>
+            <span class="pd-cap">your<br/>meeting</span>
+          </div>
+
+          <div class="pd-wire in">
+            <span class="pkt pin"></span><span class="pkt pin"></span><span class="pkt pin"></span>
+          </div>
+
+          <div class="pd-machine">
+            <span class="pd-ring"></span><span class="pd-ring r2"></span>
+            <img class="pd-fly" src="assets/fly-mark.png" alt="" />
+            <span class="pd-mlabel">YOUR MACHINE</span>
+            <span class="pd-proc"><span class="pd-pdot"></span>processing locally</span>
+          </div>
+
+          <div class="pd-wire out">
+            <span class="pkt pout"></span><span class="pkt pout"></span>
+          </div>
+
+          <div class="pd-end">
+            <span class="pd-barrier"><svg><use href="#i-nocloud"/></svg></span>
+            <span class="pd-cap danger">no<br/>cloud</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERSONAS ============ -->
+<section class="section section--tight container">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">Who it's for</span>
+    <h2 class="section-title" style="margin-top:16px;">Built for people who live in meetings.</h2>
+  </div>
+  <div class="personas">
+    <div class="persona reveal"><div class="glyph"><svg><use href="#i-rocket"/></svg></div><h3>Founders</h3><p>Keep every investor call and strategy session connected — without a tool that leaks your roadmap.</p></div>
+    <div class="persona reveal d1"><div class="glyph"><svg><use href="#i-grid"/></svg></div><h3>Product managers</h3><p>Turn discovery calls into action items and decisions that link straight to the docs they came from.</p></div>
+    <div class="persona reveal d2"><div class="glyph"><svg><use href="#i-briefcase"/></svg></div><h3>Consultants</h3><p>Each client gets their own columns on the board — and their data never touches a shared cloud.</p></div>
+    <div class="persona reveal d3"><div class="glyph"><svg><use href="#i-crown"/></svg></div><h3>Executives</h3><p>Walk into any meeting with a prep brief, and walk out with the follow-ups already captured.</p></div>
+  </div>
+</section>
+
+<!-- ============ EVERYTHING ELSE (compact feature strip) ============ -->
+<section class="section section--tight container">
+  <div class="sec-head reveal">
+    <span class="eyebrow">And the rest of the kit</span>
+    <h2 class="section-title" style="margin-top:16px;">Everything else you'd expect — still on-device.</h2>
+  </div>
+  <div class="mini-features">
+    <div class="mf reveal"><svg><use href="#i-calendar"/></svg><b>Calendar-aware</b><p>Connect Google Calendar for prep briefs before, and follow-ups after.</p></div>
+    <div class="mf reveal d1"><svg><use href="#i-sparkles"/></svg><b>Command widget</b><p>A floating Sparkles bubble for quick AI actions, right on your board.</p></div>
+    <div class="mf reveal d2"><svg><use href="#i-file"/></svg><b>Markdown export</b><p>Export everything to <span class="mono" style="font-size:13px;">.md</span> with YAML frontmatter.</p></div>
+    <div class="mf reveal d3"><svg><use href="#i-palette"/></svg><b>Light &amp; dark</b><p>A warm light mode and deep-plum dark, fully themeable.</p></div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section container">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">Questions</span>
+    <h2 class="section-title" style="margin-top:16px;">The things people actually ask.</h2>
+  </div>
+  <div class="faq" id="faq">
+    <div class="faq-item">
+      <button class="faq-q">Does anything leave my computer?<span class="faq-icon"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">No. Recording, transcription, embeddings, summarization, and chat all run locally. There's no upload, no sync, and no telemetry. The only optional network call is connecting Google Calendar — read-only event data you explicitly authorize.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How does the AI answer questions about my meetings?<span class="faq-icon"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Everything you capture is chunked, embedded, and tagged on your device into a private knowledge base. When you ask a question, a local model retrieves the relevant pieces from <em>your</em> content and answers from them — citing the exact meeting or note. Nothing is sent to an external model.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Do I need an account or an internet connection?<span class="faq-icon"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Neither. There's no sign-up — you open the app and start. Once the local models are downloaded, recording and AI work entirely offline.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How is this different from Otter or Granola?<span class="faq-icon"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Those tools send your audio to their servers and present meetings as a list. Flywall keeps everything on-device and organizes your meetings, notes, and documents into columns on a private board, all queryable by a local AI.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Which platforms are supported?<span class="faq-icon"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Flywall is a native desktop app for macOS, Windows, and Linux. There's no web or mobile version — desktop is the whole point.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I get my data out?<span class="faq-icon"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Always. Every note, meeting, report, and conversation exports to Markdown (<span class="mono" style="font-size:13px;">.md</span>) with YAML frontmatter. Your files are plain text on your disk — no lock-in.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="section finale container" id="download">
+  <div class="reveal">
+    <span class="eyebrow" style="justify-content:center;display:inline-flex;">Get Flywall</span>
+    <h2 class="section-title h-display" style="margin-top:18px;">Your meeting intelligence layer.<br/><em>Entirely yours.</em></h2>
+    <p class="section-lede">No bot. No cloud. No account. Download the app and start thinking in space.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="download.html" id="finaleDownload"><svg width="17" height="17"><use href="#i-download"/></svg><span id="dlLabel2">Download for macOS</span></a>
+      <a class="btn btn-ghost" href="changelog.html"><svg width="16" height="16"><use href="#i-github"/></svg>Changelog</a>
+    </div>
+    <div class="ticks" style="justify-content:center;margin-top:26px;">
+      <span class="tick"><svg><use href="#i-check"/></svg>macOS (Apple Silicon &amp; Intel)</span>
+      <span class="tick"><svg><use href="#i-check"/></svg>Windows 10 / 11</span>
+      <span class="tick"><svg><use href="#i-check"/></svg>Linux (.AppImage / .deb)</span>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer container">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a class="brand" href="index.html"><img class="brand-logo" src="assets/flywall-logo.png" alt="Flywall" /></a>
+      <p>Your meeting intelligence layer. A calm, private workspace that runs entirely on your machine.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#record">Record</a>
+      <a href="#notes">Notes</a>
+      <a href="#memory">Memory</a>
+      <a href="download.html">Download</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="changelog.html">Changelog</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="#">Documentation</a>
+      <a href="#">Markdown export</a>
+    </div>
+    <div class="footer-col">
+      <h4>Platforms</h4>
+      <a href="download.html">macOS</a>
+      <a href="download.html">Windows</a>
+      <a href="download.html">Linux</a>
+      <a href="#">GitHub</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="mono">© 2026 Flywall · Built local-first</span>
+    <span class="ver-badge">v0.2.0</span>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+
+<!-- Tweaks panel (design-time only; renders nothing when closed) -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="js/tweaks-app.jsx"></script>
+
+</body>
+</html>

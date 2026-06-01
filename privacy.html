@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy — Flywall</title>
+  <meta name="description" content="Flywall's privacy promise: on-device by default, nothing uploaded, no account." />
+  <link rel="icon" type="image/png" href="assets/fly-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/site.css" />
+  <style>
+    .doc { max-width: var(--maxw-narrow); margin-inline: auto; padding-top: calc(var(--nav-h) + 56px); }
+    .doc h1 { font-family: var(--font-display); font-weight: 440; font-size: clamp(38px,6vw,64px); letter-spacing:-0.02em; line-height:1.05; }
+    .doc .lead { color: var(--text-secondary); font-size: 19px; margin-top: 18px; max-width: 60ch; line-height:1.6; }
+    .doc .meta { font-family: var(--font-mono); font-size: 12.5px; color: var(--text-tertiary); margin-top: 22px; letter-spacing:.04em; }
+    .doc h2 { font-family: var(--font-display); font-weight: 480; font-size: 26px; margin-top: 52px; margin-bottom: 14px; letter-spacing:-0.01em; }
+    .doc p { color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px; max-width: 70ch; }
+    .doc ul.bul { display:flex; flex-direction:column; gap:12px; margin: 8px 0 14px; }
+    .doc ul.bul li { display:flex; gap:12px; color: var(--text-secondary); line-height:1.6; max-width:70ch; }
+    .doc ul.bul svg { width:19px; height:19px; color: var(--accent-success); flex-shrink:0; margin-top:3px; }
+    .doc strong { color: var(--text-primary); font-weight:600; }
+    .doc .pill-banner { margin-top: 40px; padding: 26px 28px; border-radius: var(--radius-lg); border:1px solid var(--border-default); background: var(--bg-surface); }
+    .doc .pill-banner p { margin:0; }
+  </style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+</defs></svg>
+
+<div class="orbs" aria-hidden="true"><div class="orb orb--peach"></div><div class="orb orb--purple"></div></div>
+
+<header class="nav glass" id="nav">
+  <div class="nav-left">
+    <a class="brand" href="index.html" aria-label="Flywall home"><img class="brand-logo" src="assets/flywall-logo.png" alt="Flywall" /></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#record">Record</a><a href="index.html#notes">Notes</a><a href="index.html#memory">Memory</a><a href="index.html#privacy">Privacy</a><a href="#">GitHub</a>
+    </nav>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun"><use href="#i-sun"/></svg><svg class="moon"><use href="#i-moon"/></svg></button>
+    <a class="btn btn-primary" href="download.html">Download</a>
+  </div>
+</header>
+
+<main class="container doc">
+  <span class="eyebrow">Privacy</span>
+  <h1 class="h-display" style="margin-top:14px;">Your meetings are yours.<br/>Full stop.</h1>
+  <p class="lead">Flywall is built local-first, not local-optional. This page explains, in plain language, exactly what stays on your machine — which is everything that matters.</p>
+  <p class="meta">Last updated · April 2026 · This is product copy for the team to adapt with legal — not a finalized legal policy.</p>
+
+  <h2>What stays on your device</h2>
+  <ul class="bul">
+    <li><svg><use href="#i-check"/></svg><span><strong>Audio &amp; recordings.</strong> Captured and stored locally. Never uploaded.</span></li>
+    <li><svg><use href="#i-check"/></svg><span><strong>Transcripts &amp; diarization.</strong> Generated on-device with local ASR (Whisper / Parakeet).</span></li>
+    <li><svg><use href="#i-check"/></svg><span><strong>Summaries, action items &amp; chat.</strong> Produced by an on-device model (Phi-3-mini via llama.cpp). No prompt ever leaves the machine.</span></li>
+    <li><svg><use href="#i-check"/></svg><span><strong>Notes, documents &amp; the knowledge graph.</strong> Stored as files on your disk.</span></li>
+  </ul>
+
+  <h2>What we never do</h2>
+  <p>No account or sign-up. No cloud sync. No analytics or telemetry that phones home. No recording bot joins your calls. There is no Flywall server in the loop for any core feature.</p>
+
+  <h2>The one optional connection</h2>
+  <p>If you choose to connect Google Calendar, Flywall reads your upcoming events to build prep briefs and surface follow-ups. This is read-only, explicitly authorized by you, and can be disconnected at any time. It is the only feature that touches the network, and the app is fully usable without it.</p>
+
+  <h2>Your data, exportable</h2>
+  <p>Everything you create exports to Markdown (<span class="mono" style="font-size:14px;">.md</span>) with YAML frontmatter. Your content is plain text on your own disk — there is no lock-in and nothing to extract from us, because we never had it.</p>
+
+  <div class="pill-banner">
+    <p style="color:var(--text-primary);font-family:var(--font-display);font-size:21px;line-height:1.4;">No bot joins your call. No audio is uploaded. No account required. The AI runs on your CPU.</p>
+  </div>
+
+  <p style="margin-top:40px;"><a class="btn btn-ghost" href="index.html"><svg width="16" height="16" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg>Back to Flywall</a></p>
+</main>
+
+<footer class="footer container">
+  <div class="footer-bottom" style="border-top:none;margin-top:24px;padding-top:0;">
+    <span class="mono">© 2026 Flywall · Built local-first</span>
+    <span class="ver-badge">v0.2.0</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    try { var s = localStorage.getItem('fw-theme'); if (s) root.setAttribute('data-theme', s); } catch (e) {}
+    var nav = document.getElementById('nav');
+    var onS = function () { nav.classList.toggle('is-scrolled', window.scrollY > 40); };
+    onS(); window.addEventListener('scroll', onS, { passive: true });
+    document.getElementById('themeToggle').addEventListener('click', function () {
+      var n = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', n);
+      try { localStorage.setItem('fw-theme', n); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>

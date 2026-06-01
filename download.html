@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download Flywall — Mac, Windows &amp; iPhone</title>
+  <meta name="description" content="Download Flywall for macOS, Windows, and iPhone. Private, local-first meeting intelligence. No account required." />
+  <link rel="icon" type="image/png" href="assets/fly-mark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/site.css" />
+  <style>
+    .dl-wrap { max-width: 980px; margin-inline: auto; padding-top: calc(var(--nav-h) + 64px); text-align: center; }
+    .dl-wrap h1 { font-family: var(--font-display); font-weight: 440; font-size: clamp(38px, 6vw, 66px); letter-spacing: -0.02em; line-height: 1.04; }
+    .dl-wrap h1 em { font-style: italic; color: var(--accent-primary); }
+    .dl-wrap .lead { color: var(--text-secondary); font-size: 18px; margin: 20px auto 0; max-width: 54ch; line-height: 1.6; }
+    .dl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 52px; text-align: left; }
+    .dl-btn {
+      display: flex; align-items: center; gap: 16px;
+      padding: 22px 22px; min-height: 92px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-elevated); border: 1px solid var(--border-default);
+      color: var(--text-primary);
+      transition: transform var(--t-smooth), border-color var(--t-smooth), box-shadow var(--t-smooth);
+    }
+    .dl-btn:hover { transform: translateY(-4px); border-color: color-mix(in oklch, var(--accent-primary) 55%, var(--border-default)); box-shadow: 0 16px 44px -14px color-mix(in oklch, var(--accent-primary) 55%, transparent); }
+    .dl-btn:active { transform: translateY(-1px) scale(.99); }
+    .dl-logo { width: 38px; height: 38px; display: grid; place-items: center; flex-shrink: 0; color: var(--text-primary); }
+    .dl-logo svg { width: 100%; height: 100%; }
+    .dl-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .dl-txt .s { font-size: 12px; color: var(--text-secondary); letter-spacing: .01em; }
+    .dl-txt .b { font-size: 21px; font-weight: 600; letter-spacing: -0.01em; }
+    .dl-meta { margin-top: 34px; font-family: var(--font-mono); font-size: 13px; color: var(--text-tertiary); display: flex; flex-direction: column; gap: 6px; align-items: center; }
+    .dl-meta .ver-badge { font-size: 12px; }
+    .dl-back { margin-top: 30px; }
+    .dl-note { margin-top: 8px; font-size: 11.5px; color: var(--text-tertiary); opacity: .8; }
+    @media (max-width: 760px) { .dl-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+</defs></svg>
+
+<div class="orbs" aria-hidden="true"><div class="orb orb--peach"></div><div class="orb orb--purple"></div></div>
+
+<header class="nav glass" id="nav">
+  <div class="nav-left">
+    <a class="brand" href="index.html" aria-label="Flywall home"><img class="brand-logo" src="assets/flywall-logo.png" alt="Flywall" /></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#record">Record</a>
+      <a href="index.html#notes">Notes</a>
+      <a href="index.html#memory">Memory</a>
+      <a href="index.html#privacy">Privacy</a>
+      <a href="#">GitHub</a>
+    </nav>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun"><use href="#i-sun"/></svg><svg class="moon"><use href="#i-moon"/></svg></button>
+    <a class="btn btn-primary" href="download.html">Download</a>
+  </div>
+</header>
+
+<main class="container dl-wrap">
+  <span class="eyebrow" style="display:inline-flex;justify-content:center;">Download Flywall</span>
+  <h1 class="h-display" style="margin-top:14px;">Get Flywall.<br/><em>It's yours, on your machine.</em></h1>
+  <p class="lead">Free while in beta. No account, no cloud — once the local models download, everything runs offline.</p>
+
+  <div class="dl-grid">
+    <!-- Mac — Apple logo -->
+    <a class="dl-btn" href="#" aria-label="Download for Mac">
+      <span class="dl-logo">
+        <svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zM262.1 104.5c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      </span>
+      <span class="dl-txt"><span class="s">Download for</span><span class="b">Mac</span></span>
+    </a>
+
+    <!-- Windows — Windows logo -->
+    <a class="dl-btn" href="#" aria-label="Download for Windows">
+      <span class="dl-logo">
+        <svg viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"/></svg>
+      </span>
+      <span class="dl-txt"><span class="s">Download for</span><span class="b">Windows</span></span>
+    </a>
+
+    <!-- iPhone — official App Store badge layout -->
+    <a class="dl-btn" href="#" aria-label="Download on the App Store">
+      <span class="dl-logo">
+        <svg viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zM262.1 104.5c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      </span>
+      <span class="dl-txt"><span class="s">Download on the</span><span class="b">App Store</span></span>
+    </a>
+  </div>
+
+  <div class="ticks" style="justify-content:center;margin-top:30px;">
+    <span class="tick"><svg><use href="#i-check"/></svg>100% on-device</span>
+    <span class="tick"><svg><use href="#i-check"/></svg>No account</span>
+    <span class="tick"><svg><use href="#i-check"/></svg>Open exports (.md)</span>
+  </div>
+
+  <div class="dl-meta">
+    <span class="ver-badge">v0.2.0</span>
+    <span>Flywall · free while in beta</span>
+    <span class="dl-note">Placeholder links — swap with your real release URLs.</span>
+  </div>
+
+  <div class="dl-back">
+    <a class="btn btn-ghost" href="index.html"><svg width="16" height="16" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg>Back to Flywall</a>
+  </div>
+</main>
+
+<footer class="footer container">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a class="brand" href="index.html"><img class="brand-logo" src="assets/flywall-logo.png" alt="Flywall" /></a>
+      <p>Your meeting intelligence layer. A calm, private workspace that runs entirely on your machine.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="index.html#record">Record</a>
+      <a href="index.html#notes">Notes</a>
+      <a href="index.html#memory">Memory</a>
+      <a href="download.html">Download</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="changelog.html">Changelog</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="#">Documentation</a>
+      <a href="#">Markdown export</a>
+    </div>
+    <div class="footer-col">
+      <h4>Platforms</h4>
+      <a href="download.html">macOS</a>
+      <a href="download.html">Windows</a>
+      <a href="download.html">iPhone</a>
+      <a href="#">GitHub</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="mono">© 2026 Flywall · Built local-first</span>
+    <span class="ver-badge">v0.2.0</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    try { var s = localStorage.getItem('fw-theme'); if (s) root.setAttribute('data-theme', s); } catch (e) {}
+    var nav = document.getElementById('nav');
+    var onS = function () { nav.classList.toggle('is-scrolled', window.scrollY > 40); };
+    onS(); window.addEventListener('scroll', onS, { passive: true });
+    document.getElementById('themeToggle').addEventListener('click', function () {
+      var n = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', n);
+      try { localStorage.setItem('fw-theme', n); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog — Flywall</title>
+  <meta name="description" content="What's new in Flywall — release notes for the local-first meeting workspace." />
+  <link rel="icon" type="image/png" href="assets/fly-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/site.css" />
+  <style>
+    .doc { max-width: var(--maxw-narrow); margin-inline: auto; padding-top: calc(var(--nav-h) + 56px); }
+    .doc h1 { font-family: var(--font-display); font-weight: 440; font-size: clamp(38px,6vw,64px); letter-spacing:-0.02em; }
+    .doc .lead { color: var(--text-secondary); font-size: 19px; margin-top: 18px; max-width: 56ch; line-height:1.6; }
+    .rel { display:grid; grid-template-columns: 180px 1fr; gap: 28px; padding: 36px 0; border-top: 1px solid var(--border-default); }
+    .rel:first-of-type { border-top: none; }
+    .rel-side { position: sticky; top: 110px; align-self: start; }
+    .rel-ver { display:inline-flex; align-items:center; gap:8px; font-family: var(--font-mono); font-size:14px; font-weight:600; }
+    .rel-ver .ver-badge { font-size:13px; }
+    .rel-date { font-family: var(--font-mono); font-size:12.5px; color: var(--text-tertiary); margin-top:8px; }
+    .rel-tag { display:inline-block; margin-top:10px; font-family:var(--font-mono); font-size:11px; padding:3px 9px; border-radius:var(--radius-full); }
+    .rel-tag.latest { background: var(--accent-muted); color: var(--accent-primary); }
+    .rel h3 { font-size:19px; font-weight:600; margin-bottom:14px; letter-spacing:-0.01em; }
+    .rel ul { display:flex; flex-direction:column; gap:11px; }
+    .rel li { display:flex; gap:12px; color: var(--text-secondary); line-height:1.55; }
+    .rel li .k { font-family: var(--font-mono); font-size:11px; padding:2px 7px; border-radius:5px; flex-shrink:0; height:fit-content; margin-top:2px; }
+    .k.new { background: color-mix(in oklch, var(--accent-success) 18%, transparent); color: var(--accent-success); }
+    .k.imp { background: color-mix(in oklch, var(--accent-info) 18%, transparent); color: var(--accent-info); }
+    .k.fix { background: var(--bg-subtle); color: var(--text-tertiary); }
+    @media (max-width:600px){ .rel{ grid-template-columns:1fr; gap:14px; } .rel-side{ position:static; } }
+  </style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+</defs></svg>
+
+<div class="orbs" aria-hidden="true"><div class="orb orb--peach"></div><div class="orb orb--purple"></div></div>
+
+<header class="nav glass" id="nav">
+  <div class="nav-left">
+    <a class="brand" href="index.html" aria-label="Flywall home"><img class="brand-logo" src="assets/flywall-logo.png" alt="Flywall" /></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#record">Record</a><a href="index.html#notes">Notes</a><a href="index.html#memory">Memory</a><a href="index.html#privacy">Privacy</a><a href="#">GitHub</a>
+    </nav>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun"><use href="#i-sun"/></svg><svg class="moon"><use href="#i-moon"/></svg></button>
+    <a class="btn btn-primary" href="download.html">Download</a>
+  </div>
+</header>
+
+<main class="container doc">
+  <span class="eyebrow">Changelog</span>
+  <h1 class="h-display" style="margin-top:14px;">What's new.</h1>
+  <p class="lead">Flywall ships in the open. Here's what's landed on the board. <span style="color:var(--text-tertiary)">(Placeholder release notes for the team to maintain.)</span></p>
+
+  <div style="margin-top:48px;">
+    <div class="rel">
+      <div class="rel-side">
+        <div class="rel-ver"><span class="ver-badge">v0.2.0</span></div>
+        <div class="rel-date">April 14, 2026</div>
+        <span class="rel-tag latest">Latest</span>
+      </div>
+      <div>
+        <h3>The column board</h3>
+        <ul>
+          <li><span class="k new">new</span><span>Replaced the ten-screen layout with a single private column board. Meetings, notes, and documents are now cards you drag between columns.</span></li>
+          <li><span class="k new">new</span><span>Edge panels: Files (left) and AI chat (top) slide in on demand.</span></li>
+          <li><span class="k new">new</span><span>Floating command widget for quick AI actions — tag, summarize, find related.</span></li>
+          <li><span class="k imp">improved</span><span>On-device summaries now generate the moment you stop recording, with no queue.</span></li>
+          <li><span class="k imp">improved</span><span>Full warm light mode alongside the deep-plum dark theme.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rel">
+      <div class="rel-side">
+        <div class="rel-ver"><span class="ver-badge" style="background:var(--bg-subtle);color:var(--text-secondary)">v0.1.4</span></div>
+        <div class="rel-date">March 2, 2026</div>
+      </div>
+      <div>
+        <h3>Knowledge that connects</h3>
+        <ul>
+          <li><span class="k new">new</span><span>Tag-derived knowledge graph: cards sharing tags now link automatically.</span></li>
+          <li><span class="k new">new</span><span>Markdown export with YAML frontmatter.</span></li>
+          <li><span class="k fix">fixed</span><span>Speaker diarization labels now persist across transcript edits.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rel">
+      <div class="rel-side">
+        <div class="rel-ver"><span class="ver-badge" style="background:var(--bg-subtle);color:var(--text-secondary)">v0.1.0</span></div>
+        <div class="rel-date">January 20, 2026</div>
+      </div>
+      <div>
+        <h3>First public beta</h3>
+        <ul>
+          <li><span class="k new">new</span><span>On-device recording, transcription, and diarization (Whisper / Parakeet).</span></li>
+          <li><span class="k new">new</span><span>Local AI summaries and action items (Phi-3-mini via llama.cpp).</span></li>
+          <li><span class="k new">new</span><span>Google Calendar prep briefs and follow-ups.</span></li>
+          <li><span class="k new">new</span><span>macOS, Windows, and Linux builds.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:40px;"><a class="btn btn-ghost" href="index.html"><svg width="16" height="16" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg>Back to Flywall</a></p>
+</main>
+
+<footer class="footer container">
+  <div class="footer-bottom" style="border-top:none;margin-top:24px;padding-top:0;">
+    <span class="mono">© 2026 Flywall · Built local-first</span>
+    <span class="ver-badge">v0.2.0</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    try { var s = localStorage.getItem('fw-theme'); if (s) root.setAttribute('data-theme', s); } catch (e) {}
+    var nav = document.getElementById('nav');
+    var onS = function () { nav.classList.toggle('is-scrolled', window.scrollY > 40); };
+    onS(); window.addEventListener('scroll', onS, { passive: true });
+    document.getElementById('themeToggle').addEventListener('click', function () {
+      var n = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', n);
+      try { localStorage.setItem('fw-theme', n); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>
