@@ -89,6 +89,7 @@
   <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 19h16"/></symbol>
 </defs></svg>
 
 <div class="orbs" aria-hidden="true"><div class="orb orb--peach"></div><div class="orb orb--purple"></div></div>
@@ -180,6 +181,17 @@
     </form>
   </div>
 
+  <!-- Download success: shown after a valid beta key (and for returning, unlocked visitors) -->
+  <div class="beta-gate" id="dlSuccess" hidden>
+    <div style="padding: 20px 18px 16px; text-align: left;">
+      <p class="beta-label" id="dlPlat" hidden style="color: var(--accent-primary); margin-bottom: 12px;"></p>
+      <p class="beta-label" style="margin-bottom: 14px;">Flywall <span id="dlVer">0.2.0-rc9</span> · ~<span id="dlSize">30</span> MB · Windows</p>
+      <a class="btn btn-primary" id="dlGo" href="#" style="width: 100%; justify-content: center;"><svg width="17" height="17"><use href="#i-download"/></svg>Download for Windows</a>
+      <p class="beta-label" style="margin: 14px 0 0;">After download, run the installer. If Windows shows &ldquo;Windows protected your PC&rdquo;, click &ldquo;More info&rdquo; then &ldquo;Run anyway&rdquo; — the installer is unsigned for this beta.</p>
+      <p class="dl-note" style="margin-top: 10px;"><a id="dlSha" href="#" rel="noopener" style="color: var(--accent-primary);">Verify SHA256</a></p>
+    </div>
+  </div>
+
   <div class="ticks" style="justify-content:center;margin-top:30px;">
     <span class="tick"><svg><use href="#i-check"/></svg>100% on-device</span>
     <span class="tick"><svg><use href="#i-check"/></svg>No account</span>
@@ -189,7 +201,7 @@
   <div class="dl-meta">
     <span class="ver-badge">v0.2.0</span>
     <span>Flywall · free while in beta</span>
-    <span class="dl-note">Placeholder links — swap with your real release URLs.</span>
+    <span class="dl-note">Windows beta is live · macOS &amp; Linux coming.</span>
   </div>
 
   <div class="dl-back">
@@ -246,12 +258,15 @@
   })();
 </script>
 
+<script src="js/flywall-release.js"></script>
+
 <script>
-  // Download gate: 3 platform boxes are always visible. Windows/Mac require a
-  // valid beta key (validated server-side) before the download fires; the App
-  // Store box is a direct link. Emails are collected via Netlify Forms.
+  // Download gate: a valid beta key (verified server-side) unlocks the Windows
+  // installer. Mac/iPhone are "coming soon". The installer URL + version come
+  // from the verify response, with js/flywall-release.js as the on-page source.
   (function () {
     var STORE = 'fw-beta-unlocked';
+    var FR = window.FlywallRelease || {};
     var gate = document.getElementById('betaGate');
     var gateHint = document.getElementById('gateHint');
     var lockLine = document.getElementById('lockLine');
@@ -269,17 +284,25 @@
     var emailInput = document.getElementById('betaEmail');
     var emailMsg = document.getElementById('emailMsg');
     var emailBtn = document.getElementById('betaEmailSubmit');
-    var pendingBtn = null;
-    var LABEL = { windows: 'Windows', mac: 'Mac' };
+
+    // Success-state elements
+    var dlSuccess = document.getElementById('dlSuccess');
+    var dlGo = document.getElementById('dlGo');
+    var dlVer = document.getElementById('dlVer');
+    var dlSize = document.getElementById('dlSize');
+    var dlSha = document.getElementById('dlSha');
+    var dlPlat = document.getElementById('dlPlat');
+
+    var isWindows = /Windows|Win32|Win64|WOW64/i.test(navigator.userAgent || '');
+    var release = null; // populated from the verify response on a valid key
 
     function unlocked() { try { return !!localStorage.getItem(STORE); } catch (e) { return false; } }
     function reflectUnlock() {
       if (unlocked()) {
         gateHint.classList.add('is-unlocked');
-        lockLine.textContent = '✓ Beta key active — desktop downloads ready.';
+        lockLine.textContent = '✓ Beta key active — your download is ready below.';
       }
     }
-    reflectUnlock();
 
     function setMsg(el, text, kind) {
       el.textContent = text;
@@ -289,6 +312,29 @@
       if (on) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = label; }
       else { btn.disabled = false; btn.textContent = btn.dataset.label || btn.textContent; }
     }
+
+    // Resolve a release field from the verify response, falling back to the
+    // on-page constant in js/flywall-release.js.
+    function relField(respKey, constKey) {
+      return (release && release[respKey]) || FR[constKey] || '';
+    }
+    // Reveal the Windows download success state. autostart=true also fires the file.
+    function showSuccess(autostart) {
+      var url = relField('url', 'FLYWALL_INSTALLER_URL');
+      dlVer.textContent = relField('version', 'FLYWALL_RELEASE_VERSION');
+      dlSize.textContent = relField('sizeMb', 'FLYWALL_INSTALLER_SIZE_MB');
+      if (url) { dlGo.setAttribute('href', url); }
+      var sha = relField('sha256Url', 'FLYWALL_INSTALLER_SHA256_URL');
+      if (sha) { dlSha.setAttribute('href', sha); }
+      if (!isWindows) { dlPlat.textContent = 'Windows-only beta — macOS & Linux coming.'; dlPlat.hidden = false; }
+      gate.hidden = true;
+      dlSuccess.hidden = false;
+      dlSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (autostart && url) { window.location.href = url; }
+    }
+
+    reflectUnlock();
+    if (unlocked()) { showSuccess(false); } // returning visitor: show download, don't auto-fire
 
     // --- Tabs ---
     function activate(keyOn) {
@@ -309,35 +355,25 @@
       setTimeout(function () { (which === 'req' ? emailInput : keyInput).focus(); }, 320);
     }
     document.getElementById('haveKeyLink').addEventListener('click', function (e) {
-      e.preventDefault(); pendingBtn = null; setMsg(keyMsg, '', ''); openGate('key');
+      e.preventDefault(); setMsg(keyMsg, '', ''); openGate('key');
     });
     document.getElementById('needKeyLink').addEventListener('click', function (e) {
       e.preventDefault(); openGate('req');
     });
 
     // --- Box clicks ---
-    function fireDownload(a) {
-      var href = a.getAttribute('href');
-      if (href && href !== '#') { window.location.href = href; }
-      else { setMsg(dlMsg, 'Download link coming soon — these are placeholders.', 'ok'); }
-    }
     grid.addEventListener('click', function (e) {
       var a = e.target.closest('.dl-btn');
       if (!a) return;
       e.preventDefault();
       setMsg(dlMsg, '', '');
       var plat = a.getAttribute('data-platform');
-      if (plat === 'ios') {
-        var href = a.getAttribute('href');
-        if (href && href !== '#') { window.open(href, '_blank', 'noopener'); }
-        else { setMsg(dlMsg, 'App Store listing coming soon.', 'ok'); }
-        return;
-      }
-      // windows / mac — require a valid key
-      if (unlocked()) { fireDownload(a); return; }
-      pendingBtn = a;
+      if (plat === 'mac') { setMsg(dlMsg, 'macOS build is coming — the Windows beta is live now.', 'ok'); return; }
+      if (plat === 'ios') { setMsg(dlMsg, 'The iPhone app is coming to the App Store.', 'ok'); return; }
+      // windows — requires a valid beta key
+      if (unlocked()) { showSuccess(true); return; }
       openGate('key');
-      setMsg(keyMsg, 'Enter your beta key to download for ' + (LABEL[plat] || 'desktop') + '.', '');
+      setMsg(keyMsg, 'Enter your beta key to download Flywall for Windows.', '');
     });
 
     // --- Key validation (serverless) ---
@@ -356,14 +392,10 @@
         .then(function (d) {
           if (d && d.valid) {
             try { localStorage.setItem(STORE, '1'); } catch (e) {}
+            release = { url: d.url, version: d.version, sizeMb: d.sizeMb, sha256Url: d.sha256Url };
             reflectUnlock();
-            setMsg(keyMsg, 'Key accepted!', 'ok');
-            var pend = pendingBtn; pendingBtn = null;
-            setTimeout(function () {
-              gate.hidden = true;
-              if (pend) { fireDownload(pend); }
-              else { setMsg(dlMsg, 'Unlocked — pick your platform above.', 'ok'); }
-            }, 550);
+            setMsg(keyMsg, 'Key accepted — starting your download…', 'ok');
+            setTimeout(function () { showSuccess(true); }, 500);
           } else {
             setMsg(keyMsg, 'That key isn’t valid. Double-check it, or request a new one.', 'err');
           }

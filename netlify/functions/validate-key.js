@@ -5,8 +5,11 @@
 //   BETA_KEYS = FLY-1A2B-3C4D-5E6F, FLY-9Z8Y-7X6W-5V4U
 // Keys are matched case-insensitively after trimming whitespace.
 //
-// The key list never reaches the browser — only a { valid: true|false }
-// verdict is returned.
+// The key list never reaches the browser. An invalid key returns
+// { valid: false }; a valid key additionally returns the installer URL and
+// version, pulled from js/flywall-release.js (the single source of truth).
+
+const release = require('../../js/flywall-release.js');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -31,7 +34,18 @@ exports.handler = async (event) => {
 
   const isValid = validKeys.includes(key.toLowerCase());
 
-  return json(200, { valid: isValid });
+  if (!isValid) {
+    return json(200, { valid: false });
+  }
+
+  // Valid key → hand back the download details for the success state.
+  return json(200, {
+    valid: true,
+    version: release.FLYWALL_RELEASE_VERSION,
+    url: release.FLYWALL_INSTALLER_URL,
+    sizeMb: release.FLYWALL_INSTALLER_SIZE_MB,
+    sha256Url: release.FLYWALL_INSTALLER_SHA256_URL,
+  });
 };
 
 function json(statusCode, body) {
