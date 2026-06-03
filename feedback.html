@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback — Flywall</title>
+  <meta name="description" content="Report a bug or suggest a feature for Flywall. We credit contributors whose reports and ideas make it into the app." />
+  <link rel="icon" type="image/png" href="assets/fly-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/site.css" />
+  <style>
+    .doc { max-width: 680px; margin-inline: auto; padding-top: calc(var(--nav-h) + 56px); }
+    .doc h1 { font-family: var(--font-display); font-weight: 440; font-size: clamp(36px,6vw,60px); letter-spacing:-0.02em; line-height:1.05; }
+    .doc .lead { color: var(--text-secondary); font-size: 19px; margin-top: 18px; max-width: 56ch; line-height:1.6; }
+
+    /* Accreditation banner */
+    .fb-credit { margin-top: 28px; display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; border-radius: var(--radius-lg); border: 1px solid color-mix(in oklch, var(--accent-primary) 35%, var(--border-default)); background: var(--accent-muted); }
+    .fb-credit svg { width: 22px; height: 22px; color: var(--accent-primary); flex-shrink: 0; margin-top: 1px; }
+    .fb-credit p { font-size: 14.5px; line-height: 1.55; color: var(--text-secondary); }
+    .fb-credit b { color: var(--text-primary); }
+
+    /* Tabs (shared look with the download gate) */
+    .fb-card { margin-top: 30px; background: var(--bg-elevated); border: 1px solid var(--border-default); border-radius: var(--radius-xl); padding: 8px; }
+    .fb-tabs { display: flex; gap: 4px; background: var(--bg-subtle); border-radius: var(--radius-lg); padding: 4px; }
+    .fb-tab { flex: 1; padding: 11px 14px; border-radius: calc(var(--radius-lg) - 3px); font-size: 14px; font-weight: 600; color: var(--text-secondary); transition: background var(--t-fast), color var(--t-fast); }
+    .fb-tab.is-active { background: var(--bg-elevated); color: var(--text-primary); box-shadow: 0 1px 3px rgba(0,0,0,.22); }
+
+    .fb-panel { display: none; padding: 22px 16px 16px; }
+    .fb-panel.is-active { display: block; }
+    .fb-field { margin-bottom: 16px; }
+    .fb-field:last-of-type { margin-bottom: 0; }
+    .fb-label { display: block; font-size: 13.5px; font-weight: 500; color: var(--text-primary); margin-bottom: 7px; }
+    .fb-label .opt { font-weight: 400; color: var(--text-tertiary); }
+    .fb-input, .fb-textarea {
+      width: 100%; padding: 12px 14px; border-radius: var(--radius-md);
+      background: var(--bg-canvas); border: 1px solid var(--border-default);
+      color: var(--text-primary); font-size: 15px; font-family: var(--font-sans);
+      transition: border-color var(--t-fast), box-shadow var(--t-fast);
+    }
+    .fb-textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
+    .fb-input::placeholder, .fb-textarea::placeholder { color: var(--text-tertiary); }
+    .fb-input:focus, .fb-textarea:focus { outline: none; border-color: var(--border-focus); box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent-primary) 22%, transparent); }
+    .fb-actions { display: flex; align-items: center; gap: 14px; margin-top: 18px; }
+    .fb-msg { font-size: 13px; min-height: 18px; line-height: 1.5; }
+    .fb-msg.is-ok { color: var(--accent-success); }
+    .fb-msg.is-err { color: var(--accent-danger); }
+    .fb-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    @media (max-width: 520px) { .fb-actions { flex-direction: column; align-items: stretch; } }
+  </style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.3 3-5.5A4.5 4.5 0 0 0 12 6 4.5 4.5 0 0 0 2 8.5c0 2.2 1.5 4 3 5.5l7 7 7-7z"/></symbol>
+</defs></svg>
+
+<div class="orbs" aria-hidden="true"><div class="orb orb--peach"></div><div class="orb orb--purple"></div></div>
+
+<header class="nav glass" id="nav">
+  <div class="nav-left">
+    <a class="brand" href="index.html" aria-label="Flywall home"><img class="brand-logo" src="assets/flywall-logo.png" alt="Flywall" /></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#record">Record</a><a href="index.html#memory">Memory</a><a href="roadmap.html">Roadmap</a><a href="feedback.html" aria-current="page">Feedback</a><a href="index.html#privacy">Privacy</a>
+    </nav>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun"><use href="#i-sun"/></svg><svg class="moon"><use href="#i-moon"/></svg></button>
+    <a class="btn btn-primary" href="download.html">Download</a>
+  </div>
+</header>
+
+<main class="container doc">
+  <span class="eyebrow">Feedback</span>
+  <h1 class="h-display" style="margin-top:14px;">Found a bug? Got an idea?</h1>
+  <p class="lead">Flywall gets better because of the people who use it. Tell us what's broken or what you wish it did — it goes straight to the team.</p>
+
+  <div class="fb-credit">
+    <svg><use href="#i-heart"/></svg>
+    <p><b>We credit our contributors.</b> If your bug report or idea makes it into Flywall, we'll add your name to the in-app credits — with your permission. Leave your name and email so we know who to thank.</p>
+  </div>
+
+  <div class="fb-card">
+    <div class="fb-tabs" role="tablist" aria-label="Feedback type">
+      <button class="fb-tab is-active" id="tabBug" type="button" role="tab" aria-selected="true" aria-controls="panelBug">Report a bug</button>
+      <button class="fb-tab" id="tabFeature" type="button" role="tab" aria-selected="false" aria-controls="panelFeature">Suggest a feature</button>
+    </div>
+
+    <!-- BUG REPORT (Netlify Forms) -->
+    <form class="fb-panel is-active" id="panelBug" role="tabpanel" aria-labelledby="tabBug" name="bug-report" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="bug-report" />
+      <p class="fb-hp" aria-hidden="true"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+      <div class="fb-field">
+        <label class="fb-label" for="bugWhat">What went wrong?</label>
+        <textarea class="fb-textarea" id="bugWhat" name="what-happened" required placeholder="Describe the bug or glitch — what you saw vs. what you expected."></textarea>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="bugSteps">Steps to reproduce <span class="opt">· optional</span></label>
+        <textarea class="fb-textarea" id="bugSteps" name="steps" placeholder="1. Open Flywall&#10;2. Start a recording&#10;3. …"></textarea>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="bugEnv">Platform &amp; version <span class="opt">· optional</span></label>
+        <input class="fb-input" id="bugEnv" name="environment" type="text" placeholder="e.g. macOS 14 · Flywall v0.2.0" />
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="bugName">Your name <span class="opt">· optional, for credit</span></label>
+        <input class="fb-input" id="bugName" name="name" type="text" autocomplete="name" placeholder="Jane Doe" />
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="bugEmail">Email <span class="opt">· optional, so we can follow up</span></label>
+        <input class="fb-input" id="bugEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+      </div>
+      <div class="fb-actions">
+        <button class="btn btn-primary" type="submit" id="bugSubmit">Send bug report</button>
+        <p class="fb-msg" id="bugMsg" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+
+    <!-- FEATURE REQUEST (Netlify Forms) -->
+    <form class="fb-panel" id="panelFeature" role="tabpanel" aria-labelledby="tabFeature" name="feature-request" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" novalidate>
+      <input type="hidden" name="form-name" value="feature-request" />
+      <p class="fb-hp" aria-hidden="true"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+      <div class="fb-field">
+        <label class="fb-label" for="featIdea">Your idea</label>
+        <textarea class="fb-textarea" id="featIdea" name="idea" required placeholder="What should Flywall do? Describe the feature you'd love to see."></textarea>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="featProblem">What problem would it solve? <span class="opt">· optional</span></label>
+        <textarea class="fb-textarea" id="featProblem" name="problem" placeholder="What are you trying to do today that's harder than it should be?"></textarea>
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="featName">Your name <span class="opt">· optional, for credit</span></label>
+        <input class="fb-input" id="featName" name="name" type="text" autocomplete="name" placeholder="Jane Doe" />
+      </div>
+      <div class="fb-field">
+        <label class="fb-label" for="featEmail">Email <span class="opt">· optional, so we can follow up</span></label>
+        <input class="fb-input" id="featEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+      </div>
+      <div class="fb-actions">
+        <button class="btn btn-primary" type="submit" id="featSubmit">Send suggestion</button>
+        <p class="fb-msg" id="featMsg" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </div>
+
+  <p style="margin-top:40px;"><a class="btn btn-ghost" href="index.html"><svg width="16" height="16" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg>Back to Flywall</a></p>
+</main>
+
+<footer class="footer container">
+  <div class="footer-bottom" style="border-top:none;margin-top:24px;padding-top:0;">
+    <span class="mono">© 2026 Flywall · Built local-first</span>
+    <span class="ver-badge">v0.2.0</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    try { var s = localStorage.getItem('fw-theme'); if (s) root.setAttribute('data-theme', s); } catch (e) {}
+    var nav = document.getElementById('nav');
+    var onS = function () { nav.classList.toggle('is-scrolled', window.scrollY > 40); };
+    onS(); window.addEventListener('scroll', onS, { passive: true });
+    document.getElementById('themeToggle').addEventListener('click', function () {
+      var n = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', n);
+      try { localStorage.setItem('fw-theme', n); } catch (e) {}
+    });
+  })();
+
+  // Feedback forms: tab switch + Netlify Forms AJAX submit.
+  (function () {
+    var tabBug = document.getElementById('tabBug');
+    var tabFeature = document.getElementById('tabFeature');
+    var panelBug = document.getElementById('panelBug');
+    var panelFeature = document.getElementById('panelFeature');
+
+    function activate(bugOn) {
+      tabBug.classList.toggle('is-active', bugOn);
+      tabFeature.classList.toggle('is-active', !bugOn);
+      tabBug.setAttribute('aria-selected', String(bugOn));
+      tabFeature.setAttribute('aria-selected', String(!bugOn));
+      panelBug.classList.toggle('is-active', bugOn);
+      panelFeature.classList.toggle('is-active', !bugOn);
+    }
+    tabBug.addEventListener('click', function () { activate(true); });
+    tabFeature.addEventListener('click', function () { activate(false); });
+
+    function setMsg(el, text, kind) {
+      el.textContent = text;
+      el.className = 'fb-msg' + (kind === 'ok' ? ' is-ok' : kind === 'err' ? ' is-err' : '');
+    }
+    function busy(btn, on, label) {
+      if (on) { btn.dataset.label = btn.textContent; btn.disabled = true; btn.textContent = label; }
+      else { btn.disabled = false; btn.textContent = btn.dataset.label || btn.textContent; }
+    }
+
+    function wire(form, btn, msg, requiredEl, okText) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!requiredEl.value.trim()) {
+          setMsg(msg, 'Please fill in the main field first.', 'err');
+          requiredEl.focus();
+          return;
+        }
+        setMsg(msg, '', '');
+        busy(btn, true, 'Sending…');
+        var body = new URLSearchParams(new FormData(form)).toString();
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body
+        })
+          .then(function (r) {
+            if (!r.ok) throw new Error('submit failed');
+            setMsg(msg, okText, 'ok');
+            form.reset();
+          })
+          .catch(function () {
+            setMsg(msg, 'Something went wrong — please try again.', 'err');
+          })
+          .then(function () { busy(btn, false); });
+      });
+    }
+
+    wire(panelBug, document.getElementById('bugSubmit'), document.getElementById('bugMsg'),
+      document.getElementById('bugWhat'), 'Thanks — your report is logged. If we use it, we’ll credit you.');
+    wire(panelFeature, document.getElementById('featSubmit'), document.getElementById('featMsg'),
+      document.getElementById('featIdea'), 'Thanks — idea received! We credit contributors whose suggestions ship.');
+  })();
+</script>
+</body>
+</html>

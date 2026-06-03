@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flywall — Your meeting intelligence layer</title>
-  <meta name="description" content="Flywall records and transcribes your meetings, organizes them into columns on a private board, and lets a local AI answer questions across your private knowledge — entirely on your machine. No bot. No cloud. No account." />
+  <title>Flywall — A second you for every meeting</title>
+  <meta name="description" content="Flywall is a second you: it sits in on every meeting, remembers everything you learn, and hands the knowledge back the instant you need it — with a local AI that runs entirely on your machine. No bot. No cloud. No account." />
   <link rel="icon" type="image/png" href="assets/fly-mark.png" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Flywall — Your meeting intelligence layer" />
-  <meta property="og:description" content="Record meetings, organize them on a private board, and query your private memory with on-device AI. No bots. No cloud. No account." />
+  <meta property="og:title" content="Flywall — A second you for every meeting" />
+  <meta property="og:description" content="It sits in on every meeting, remembers everything, and answers from your own memory with on-device AI. No bot. No cloud. No account." />
   <meta property="og:image" content="assets/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Flywall — Your meeting intelligence layer" />
-  <meta name="twitter:description" content="Meeting intelligence that never leaves your machine." />
+  <meta name="twitter:title" content="Flywall — A second you for every meeting" />
+  <meta name="twitter:description" content="A second you for every meeting — remembers everything, on your machine and nowhere else." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,7 +30,7 @@
     "name": "Flywall",
     "applicationCategory": "ProductivityApplication",
     "operatingSystem": "macOS, Windows, Linux",
-    "description": "Privacy-first, local-only meeting intelligence on a private column board with on-device AI memory.",
+    "description": "A second you for every meeting: local-only capture, a private memory of everything you've heard, and on-device AI recall. No bot, no cloud, no account.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
@@ -92,10 +92,10 @@
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#record">Record</a>
-      <a href="#notes">Notes</a>
       <a href="#memory">Memory</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="feedback.html">Feedback</a>
       <a href="#privacy">Privacy</a>
-      <a href="#">GitHub</a>
     </nav>
   </div>
   <div class="nav-right">
@@ -113,11 +113,11 @@
 <section class="hero container">
   <div class="hero-inner">
     <div class="hero-copy reveal in">
-      <span class="eyebrow">Your meeting intelligence layer
+      <span class="eyebrow">A second you, in every meeting
         <span class="wave" aria-hidden="true"><i></i><i></i><i></i></span>
       </span>
-      <h1 class="h-display" id="heroHeadline">Stop searching folders. <em>Start thinking in space.</em></h1>
-      <p class="sub">Flywall records and transcribes your meetings, organizes them into columns on a private board, then lets a local AI answer questions across everything you've captured. The AI runs on your machine. Nothing is uploaded. No account required.</p>
+      <h1 class="h-display" id="heroHeadline">Meet a second you. <em>It never forgets a meeting.</em></h1>
+      <p class="sub">Flywall sits in on every meeting, captures every word, and files it into a private memory that's yours alone. Ask it anything later and a local AI answers from what <em>you've</em> heard — not the internet. It all runs on your machine: no bot joins the call, nothing is uploaded, no account required.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="download.html" id="primaryDownload">
           <svg width="17" height="17"><use href="#i-download"/></svg>
@@ -267,14 +267,14 @@
 <!-- ============ THREE PILLARS INTRO ============ -->
 <section class="section section--tight container pillars-intro">
   <div class="sec-head center reveal">
-    <span class="eyebrow">Three things, one private workspace</span>
-    <h2 class="section-title" style="margin-top:16px;">Record. Take notes. Then ask your own memory.</h2>
-    <p class="section-lede">Flywall does the whole loop — capture, organize, recall — and never sends a byte to anyone else's server.</p>
+    <span class="eyebrow">How your second self works</span>
+    <h2 class="section-title" style="margin-top:16px;">It sits in. It remembers. It answers.</h2>
+    <p class="section-lede">Flywall captures every meeting, files it into a private memory, and lets you question everything you've ever heard — without a byte leaving your machine.</p>
   </div>
   <div class="pillar-chips">
-    <a class="pchip reveal d1" href="#record"><span class="pn">01</span><svg><use href="#i-mic"/></svg><b>Record meetings</b></a>
-    <a class="pchip reveal d2" href="#notes"><span class="pn">02</span><svg><use href="#i-layers"/></svg><b>Take notes</b></a>
-    <a class="pchip reveal d3" href="#memory"><span class="pn">03</span><svg><use href="#i-brain"/></svg><b>Leverage AI over your memory</b></a>
+    <a class="pchip reveal d1" href="#record"><span class="pn">01</span><svg><use href="#i-mic"/></svg><b>Sit in on meetings</b></a>
+    <a class="pchip reveal d2" href="#notes"><span class="pn">02</span><svg><use href="#i-layers"/></svg><b>Organize the memory</b></a>
+    <a class="pchip reveal d3" href="#memory"><span class="pn">03</span><svg><use href="#i-brain"/></svg><b>Recall it on demand</b></a>
   </div>
 </section>
 
@@ -282,13 +282,13 @@
 <section class="section pillar container" id="record">
   <div class="pillar-grid">
     <div class="pillar-copy reveal">
-      <span class="pillar-kicker"><span class="pk-num">01</span> Record meetings</span>
-      <h2 class="section-title">Hit record. No bot joins the call.</h2>
-      <p class="section-lede">Audio is captured and transcribed <strong>on your device</strong> in real time, with speaker labels. The moment you stop, a local model writes the summary, decisions, and action items — no queue, no upload.</p>
+      <span class="pillar-kicker"><span class="pk-num">01</span> Sit in on every meeting</span>
+      <h2 class="section-title">Press record. It's in the room with you.</h2>
+      <p class="section-lede">Audio is captured and transcribed <strong>on your device</strong> in real time, with speaker labels. The moment you stop, your second self writes the summary, decisions, and action items — so you stay present instead of scribbling notes.</p>
       <ul class="pillar-points">
         <li><svg><use href="#i-mic"/></svg><span><b>On-device transcription &amp; diarization</b> — Whisper / Parakeet, fully offline.</span></li>
         <li><svg><use href="#i-bolt"/></svg><span><b>Instant local summary</b> — decisions and action items the second you stop.</span></li>
-        <li><svg><use href="#i-nocloud"/></svg><span><b>No bot, no upload</b> — your raw audio never leaves the machine.</span></li>
+        <li><svg><use href="#i-nocloud"/></svg><span><b>No bot, no upload</b> — it sits in without anyone else listening.</span></li>
       </ul>
     </div>
     <div class="pillar-visual reveal d1">
@@ -320,9 +320,9 @@
 <section class="section pillar container" id="notes">
   <div class="pillar-grid reverse">
     <div class="pillar-copy reveal">
-      <span class="pillar-kicker"><span class="pk-num">02</span> Take notes</span>
+      <span class="pillar-kicker"><span class="pk-num">02</span> Organize the memory</span>
       <h2 class="section-title">A private board, not a folder maze.</h2>
-      <p class="section-lede">Meetings, notes, and documents become movable cards, organized into columns on a private board. Drag a card from one column to the next, tag it, filter it — then export anything to plain Markdown. No nested folders to dig through.</p>
+      <p class="section-lede">Every meeting, note, and document becomes a movable card on a private board. Your second self keeps it all organized into columns — drag, tag, filter — then export anything to plain Markdown. No nested folders to dig through.</p>
       <ul class="pillar-points">
         <li><svg><use href="#i-layers"/></svg><span><b>A private column board</b> — drag cards between columns, kanban-style.</span></li>
         <li><svg><use href="#i-tag"/></svg><span><b>Tags &amp; quick filters</b> — group related thinking without folders.</span></li>
@@ -374,9 +374,9 @@
 <section class="section pillar-lead" id="memory">
   <div class="container">
     <div class="sec-head reveal" style="max-width:none;">
-      <span class="pillar-kicker lead"><span class="pk-num">03</span> Leverage AI over your private memory</span>
-      <h2 class="section-title big">Your private memory,<br/><em>queryable by AI</em> — entirely on your device.</h2>
-      <p class="section-lede" style="max-width:62ch;">Everything you capture is chunked, embedded, and tagged <strong>on your machine</strong> into a private knowledge base. The local AI answers from <em>your</em> meetings and notes — not the internet — and it compounds: the more you record, the sharper your second brain gets.</p>
+      <span class="pillar-kicker lead"><span class="pk-num">03</span> Ask your second self anything</span>
+      <h2 class="section-title big">Everything you've heard,<br/><em>one question away.</em></h2>
+      <p class="section-lede" style="max-width:62ch;">Everything you capture is chunked, embedded, and tagged <strong>on your machine</strong> into a private knowledge base. Ask a question and a local AI answers from <em>your</em> meetings and notes — not the internet — citing exactly where it came from. The more you record, the more your second self knows.</p>
     </div>
 
     <div class="memory-layout">
@@ -427,7 +427,7 @@
       <div>
         <span class="eyebrow">Privacy isn't a setting</span>
         <h2 class="section-title" style="margin-top:16px;">Your meetings never leave this device.</h2>
-        <p class="privacy-quote">No bot joins your call. No audio is uploaded. No account required. The AI runs on your CPU.<br/><span style="color:var(--accent-primary)">Your meetings are yours — full stop.</span></p>
+        <p class="privacy-quote">No bot joins your call. No audio is uploaded. No account required. The AI runs on your CPU.<br/><span style="color:var(--accent-primary)">A second you that answers to no one else.</span></p>
         <div class="privacy-points">
           <div class="privacy-point"><svg><use href="#i-shield"/></svg><span><b>On-device by default.</b> Recording, transcription, embeddings, and summaries happen locally — offline works.</span></div>
           <div class="privacy-point"><svg><use href="#i-nocloud"/></svg><span><b>Nothing phones home.</b> No telemetry, no sync, no servers in the loop.</span></div>
@@ -473,10 +473,10 @@
     <h2 class="section-title" style="margin-top:16px;">Built for people who live in meetings.</h2>
   </div>
   <div class="personas">
-    <div class="persona reveal"><div class="glyph"><svg><use href="#i-rocket"/></svg></div><h3>Founders</h3><p>Keep every investor call and strategy session connected — without a tool that leaks your roadmap.</p></div>
-    <div class="persona reveal d1"><div class="glyph"><svg><use href="#i-grid"/></svg></div><h3>Product managers</h3><p>Turn discovery calls into action items and decisions that link straight to the docs they came from.</p></div>
-    <div class="persona reveal d2"><div class="glyph"><svg><use href="#i-briefcase"/></svg></div><h3>Consultants</h3><p>Each client gets their own columns on the board — and their data never touches a shared cloud.</p></div>
-    <div class="persona reveal d3"><div class="glyph"><svg><use href="#i-crown"/></svg></div><h3>Executives</h3><p>Walk into any meeting with a prep brief, and walk out with the follow-ups already captured.</p></div>
+    <div class="persona reveal"><div class="glyph"><svg><use href="#i-rocket"/></svg></div><h3>Founders</h3><p>It remembers every investor call and strategy session, so you can recall any promise or number on the spot — without a tool that leaks your roadmap.</p></div>
+    <div class="persona reveal d1"><div class="glyph"><svg><use href="#i-grid"/></svg></div><h3>Product managers</h3><p>Every discovery call becomes searchable memory — ask what a user said three sprints ago and get the exact quote, linked to its source.</p></div>
+    <div class="persona reveal d2"><div class="glyph"><svg><use href="#i-briefcase"/></svg></div><h3>Consultants</h3><p>A second you for each client — every engagement's meetings stay separate, instantly recallable, and never touch a shared cloud.</p></div>
+    <div class="persona reveal d3"><div class="glyph"><svg><use href="#i-crown"/></svg></div><h3>Executives</h3><p>Walk in briefed by your second self, walk out with the follow-ups already captured — and recall any past decision instantly.</p></div>
   </div>
 </section>
 
@@ -502,11 +502,15 @@
   </div>
   <div class="faq" id="faq">
     <div class="faq-item">
+      <button class="faq-q">What does "a second you" actually mean?<span class="faq-icon"></span></button>
+      <div class="faq-a"><div class="faq-a-inner">Flywall sits in on your meetings, remembers everything that's said, and recalls it on demand — like a version of you that never forgets and is always available to answer. It isn't a chatbot pretending to be you; it's <em>your</em> own memory, captured and made instantly searchable by a local AI.</div></div>
+    </div>
+    <div class="faq-item">
       <button class="faq-q">Does anything leave my computer?<span class="faq-icon"></span></button>
       <div class="faq-a"><div class="faq-a-inner">No. Recording, transcription, embeddings, summarization, and chat all run locally. There's no upload, no sync, and no telemetry. The only optional network call is connecting Google Calendar — read-only event data you explicitly authorize.</div></div>
     </div>
     <div class="faq-item">
-      <button class="faq-q">How does the AI answer questions about my meetings?<span class="faq-icon"></span></button>
+      <button class="faq-q">How does it answer questions about my meetings?<span class="faq-icon"></span></button>
       <div class="faq-a"><div class="faq-a-inner">Everything you capture is chunked, embedded, and tagged on your device into a private knowledge base. When you ask a question, a local model retrieves the relevant pieces from <em>your</em> content and answers from them — citing the exact meeting or note. Nothing is sent to an external model.</div></div>
     </div>
     <div class="faq-item">
@@ -515,7 +519,7 @@
     </div>
     <div class="faq-item">
       <button class="faq-q">How is this different from Otter or Granola?<span class="faq-icon"></span></button>
-      <div class="faq-a"><div class="faq-a-inner">Those tools send your audio to their servers and present meetings as a list. Flywall keeps everything on-device and organizes your meetings, notes, and documents into columns on a private board, all queryable by a local AI.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Those tools send your audio to their servers and hand back a transcript. Flywall is a second you: it keeps everything on-device, builds a private memory of every meeting, and lets a local AI answer from it — citing the exact source. Your data never touches a shared cloud.</div></div>
     </div>
     <div class="faq-item">
       <button class="faq-q">Which platforms are supported?<span class="faq-icon"></span></button>
@@ -532,8 +536,8 @@
 <section class="section finale container" id="download">
   <div class="reveal">
     <span class="eyebrow" style="justify-content:center;display:inline-flex;">Get Flywall</span>
-    <h2 class="section-title h-display" style="margin-top:18px;">Your meeting intelligence layer.<br/><em>Entirely yours.</em></h2>
-    <p class="section-lede">No bot. No cloud. No account. Download the app and start thinking in space.</p>
+    <h2 class="section-title h-display" style="margin-top:18px;">Meet a second you.<br/><em>Entirely yours.</em></h2>
+    <p class="section-lede">No bot. No cloud. No account. Download Flywall and never walk out of a meeting empty-handed again.</p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="download.html" id="finaleDownload"><svg width="17" height="17"><use href="#i-download"/></svg><span id="dlLabel2">Download</span></a>
       <a class="btn btn-ghost" href="changelog.html"><svg width="16" height="16"><use href="#i-github"/></svg>Changelog</a>
@@ -552,7 +556,7 @@
   <div class="footer-top">
     <div class="footer-brand">
       <a class="brand" href="index.html"><img class="brand-logo" src="assets/flywall-logo.png" alt="Flywall" /></a>
-      <p>Your meeting intelligence layer. A calm, private workspace that runs entirely on your machine.</p>
+      <p>A second you for every meeting — it remembers everything and runs entirely on your machine.</p>
     </div>
     <div class="footer-col">
       <h4>Product</h4>
@@ -563,10 +567,10 @@
     </div>
     <div class="footer-col">
       <h4>Resources</h4>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="feedback.html">Feedback</a>
       <a href="changelog.html">Changelog</a>
       <a href="privacy.html">Privacy policy</a>
-      <a href="#">Documentation</a>
-      <a href="#">Markdown export</a>
     </div>
     <div class="footer-col">
       <h4>Platforms</h4>
