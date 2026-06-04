@@ -156,7 +156,8 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  overflow-x: hidden; /* fallback for browsers without `clip` */
+  overflow-x: clip;   /* clips horizontal overflow without creating a scroll container, so position:sticky keeps working */
   transition: background 480ms var(--ease-smooth), color 480ms var(--ease-smooth);
 }
 

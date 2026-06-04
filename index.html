@@ -271,12 +271,20 @@
     <h2 class="section-title" style="margin-top:16px;">It captures. It remembers. It answers.</h2>
     <p class="section-lede">Flywall takes in everything you learn — meetings, notes, documents, research — files it into a private memory, and lets you question all of it. Without a byte leaving your machine.</p>
   </div>
-  <div class="pillar-chips">
-    <a class="pchip reveal d1" href="#record"><span class="pn">01</span><svg><use href="#i-mic"/></svg><b>Sit in on meetings</b></a>
-    <a class="pchip reveal d2" href="#notes"><span class="pn">02</span><svg><use href="#i-layers"/></svg><b>Organize the memory</b></a>
-    <a class="pchip reveal d3" href="#memory"><span class="pn">03</span><svg><use href="#i-brain"/></svg><b>Recall it on demand</b></a>
-  </div>
 </section>
+
+<!-- ====== PILLARS FLOW: the chip row pins while scrolling the 3 pillars, then releases ====== -->
+<div class="pillars-flow">
+  <div class="pchips-sentinel" aria-hidden="true"></div>
+  <div class="pchips-sticky" id="pchipsBar">
+    <div class="container">
+      <div class="pillar-chips">
+        <a class="pchip" href="#record"><span class="pn">01</span><svg><use href="#i-mic"/></svg><b>Sit in on meetings</b></a>
+        <a class="pchip" href="#notes"><span class="pn">02</span><svg><use href="#i-layers"/></svg><b>Organize the memory</b></a>
+        <a class="pchip" href="#memory"><span class="pn">03</span><svg><use href="#i-brain"/></svg><b>Recall it on demand</b></a>
+      </div>
+    </div>
+  </div>
 
 <!-- ============ PILLAR 1 — RECORD ============ -->
 <section class="section pillar container" id="record">
@@ -419,6 +427,7 @@
     </div>
   </div>
 </section>
+</div><!-- /.pillars-flow -->
 
 <!-- ============ PRIVACY MANIFESTO ============ -->
 <section class="section privacy-band container" id="privacy">

@@ -391,6 +391,28 @@ body::after {
 .pchip.active { border-color: color-mix(in oklch, var(--accent-primary) 60%, transparent); }
 .pchip.active .pn, .pchip.active b { color: var(--accent-primary); }
 
+/* Sticky pillar-chip nav: pins through the 3 pillars, frosted only while stuck */
+.pchips-sentinel { height: 0; }
+.pchips-sticky {
+  position: -webkit-sticky; position: sticky;
+  top: calc(var(--nav-h) + 10px);
+  z-index: 800;
+  padding: 10px 0;
+  transition: background var(--t-normal), box-shadow var(--t-normal);
+}
+.pchips-sticky .pillar-chips { margin-top: 0; }
+.pchips-sticky.is-stuck {
+  background: color-mix(in oklch, var(--bg-canvas) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 10px 28px -18px rgba(0,0,0,.55);
+}
+/* keep the 3 pillar targets clear of the pinned bar when jumped to via the chips */
+#record, #notes, #memory { scroll-margin-top: calc(var(--nav-h) + 64px); }
+@media (max-width: 760px) {
+  .pchips-sticky { position: static; } /* let it scroll normally on small screens */
+}
+
 .pillar-grid { display: grid; grid-template-columns: 1fr 1.12fr; gap: clamp(36px, 6vw, 84px); align-items: center; }
 .pillar-grid.reverse .pillar-copy { order: 2; }
 .pillar-kicker { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-primary); margin-bottom: 18px; }

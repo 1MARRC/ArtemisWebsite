@@ -276,6 +276,16 @@
     sections.forEach(function (s) { io.observe(s); });
   })();
 
+  /* ---------- Sticky pillar-chip bar: frost it only while pinned ---------- */
+  (function () {
+    var bar = document.getElementById('pchipsBar');
+    var sentinel = document.querySelector('.pchips-sentinel');
+    if (!bar || !sentinel || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      bar.classList.toggle('is-stuck', !entries[0].isIntersecting);
+    }, { rootMargin: '-' + (64 + 10) + 'px 0px 0px 0px', threshold: 0 }).observe(sentinel);
+  })();
+
   /* ---------- Mobile burger ---------- */
   (function () {
     var burger = $('#burger'), navLinks = $('.nav-links');
