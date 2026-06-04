@@ -391,18 +391,19 @@ body::after {
 .pchip.active { border-color: color-mix(in oklch, var(--accent-primary) 60%, transparent); }
 .pchip.active .pn, .pchip.active b { color: var(--accent-primary); }
 
-/* Sticky pillar-chip nav: pins through the 3 pillars, then releases.
-   Opaque page-coloured strip so content scrolling under is cleanly hidden
-   (no translucent smear) and it reads as pinned chips, not a banner. */
-.pchips-sentinel { height: 0; }
+/* Sticky pillar-chip nav: the three pills pin through the pillars, then release.
+   No background bar — they float over the page so there's no banner/band that
+   could clash with the ambient gradient behind. The pills themselves are opaque. */
 .pchips-sticky {
   position: -webkit-sticky; position: sticky;
   top: calc(var(--nav-h) + 10px);
   z-index: 800;
-  padding: 12px 0 14px;
-  background: var(--bg-canvas);
+  padding: 6px 0;
+  background: transparent;
+  pointer-events: none; /* let the gaps between pills not block the page */
 }
 .pchips-sticky .pillar-chips { margin-top: 0; }
+.pchips-sticky .pchip { pointer-events: auto; }
 /* keep the 3 pillar targets clear of the pinned bar when jumped to via the chips */
 #record, #notes, #memory { scroll-margin-top: calc(var(--nav-h) + 64px); }
 @media (max-width: 760px) {
