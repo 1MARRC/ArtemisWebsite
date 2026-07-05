@@ -286,4 +286,29 @@
     });
   })();
 
+  /* ---------- OS detection for download links ---------- */
+  (function () {
+    var isMac = /Mac/i.test(navigator.platform || navigator.userAgent);
+    var url = isMac 
+      ? 'https://github.com/1MARRC/Artemis/releases/download/v0.2.0/Flywall_0.2.0_x64.dmg'
+      : 'releases/Flywall_0.2.0_x64-setup.exe';
+    var labelText = 'Download for ' + (isMac ? 'Mac' : 'Windows');
+
+    var pBtn = document.getElementById('primaryDownload');
+    var pLabel = document.getElementById('dlLabel');
+    if (pBtn && pLabel) {
+      pBtn.href = url;
+      pBtn.setAttribute('download', '');
+      pLabel.textContent = labelText;
+    }
+
+    var fBtn = document.getElementById('finaleDownload');
+    var fLabel = document.getElementById('dlLabel2');
+    if (fBtn && fLabel) {
+      fBtn.href = url;
+      fBtn.setAttribute('download', '');
+      fLabel.textContent = labelText;
+    }
+  })();
+
 })();
