@@ -82,6 +82,14 @@
     .beta-gate[hidden] { display: none; }
     @media (max-width: 520px) { .beta-row { flex-direction: column; } .beta-row .btn { width: 100%; } }
   </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4VJD32J2JE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4VJD32J2JE');
+  </script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -330,6 +338,9 @@
       gate.hidden = true;
       dlSuccess.hidden = false;
       dlSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (typeof gtag === 'function' && autostart) {
+        gtag('event', 'download_unlocked', { event_category: 'Beta', event_label: url });
+      }
       if (autostart && url) { window.location.href = url; }
     }
 
