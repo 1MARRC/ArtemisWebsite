@@ -20,10 +20,7 @@
   var FLYWALL_RELEASE_VERSION = '0.2.1';
 
   var FLYWALL_INSTALLER_SIZE_MB = 30; // approximate, for the UI label only
-  var FLYWALL_INSTALLER_URL =
-    'https://github.com/1MARRC/flywall-releases/releases/download/v' +
-    FLYWALL_RELEASE_VERSION +
-    '/Flywall_' + FLYWALL_RELEASE_VERSION + '_x64-setup.exe';
+  var FLYWALL_INSTALLER_URL = 'releases/Flywall_' + FLYWALL_RELEASE_VERSION + '_x64-setup.exe';
   var FLYWALL_INSTALLER_SHA256_URL = FLYWALL_INSTALLER_URL + '.sha256';
 
   return {
