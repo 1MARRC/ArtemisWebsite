@@ -44,12 +44,13 @@ exports.handler = async (event) => {
   // Optional: Send a ping to Discord/Slack if a webhook URL is configured
   if (process.env.WEBHOOK_URL) {
     try {
-      // Don't await this; let it run in the background so it doesn't slow down the response
-      fetch(process.env.WEBHOOK_URL, {
+      // We MUST await the fetch in serverless functions, otherwise the function
+      // terminates before the network request is actually sent out.
+      await fetch(process.env.WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: `🎉 **New Download!** Beta key \`${key}\` was just used.` })
-      }).catch(e => console.error('Webhook failed:', e));
+      });
     } catch (e) {
       console.error('Webhook error:', e);
     }
