@@ -38,7 +38,23 @@ exports.handler = async (event) => {
     return json(200, { valid: false });
   }
 
-  // Valid key → hand back the download details for the success state.
+  // Valid key → track and hand back the download details.
+  console.log(`[DOWNLOAD_TRACKING] Successful beta key validation: ${key}`);
+
+  // Optional: Send a ping to Discord/Slack if a webhook URL is configured
+  if (process.env.WEBHOOK_URL) {
+    try {
+      // Don't await this; let it run in the background so it doesn't slow down the response
+      fetch(process.env.WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: `🎉 **New Download!** Beta key \`${key}\` was just used.` })
+      }).catch(e => console.error('Webhook failed:', e));
+    } catch (e) {
+      console.error('Webhook error:', e);
+    }
+  }
+
   return json(200, {
     valid: true,
     version: release.FLYWALL_RELEASE_VERSION,
