@@ -291,7 +291,7 @@
     var isMac = /Mac/i.test(navigator.platform || navigator.userAgent);
     var url = isMac 
       ? 'https://github.com/1MARRC/Artemis/releases/download/v0.2.0/Flywall_0.2.0_x64.dmg'
-      : 'releases/Flywall_0.2.0_x64-setup.exe';
+      : 'releases/Flywall_0.2.1_x64-setup.exe';
     var labelText = 'Download for ' + (isMac ? 'Mac' : 'Windows');
 
     var pBtn = document.getElementById('primaryDownload');

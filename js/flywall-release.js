@@ -17,7 +17,7 @@
   if (root) { root.FlywallRelease = cfg; }
 })(typeof self !== 'undefined' ? self : this, function () {
   // ── bump this one line per release ──
-  var FLYWALL_RELEASE_VERSION = '0.2.0-rc9';
+  var FLYWALL_RELEASE_VERSION = '0.2.1';
 
   var FLYWALL_INSTALLER_SIZE_MB = 30; // approximate, for the UI label only
   var FLYWALL_INSTALLER_URL =
